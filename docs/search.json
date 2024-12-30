@@ -39,7 +39,7 @@
     "href": "pages/attention-is-all-you-need/index.html#methods",
     "title": "Transformers: Attention Is All You Need",
     "section": "Methods",
-    "text": "Methods\n\nEncoder Decoder Stacks\nEncoder: The encoder is combosed of \\(N = 6\\) identical layers.\nDecoder:\n\n\nScaled Dot-Product Attention\n\n\nMulti-Head Attention"
+    "text": "Methods\n\nEncoder Decoder Stacks\nEncoder:\nDecoder:\n\n\nScaled Dot-Product Attention\n\\[\n\\text{Attention}(Q, K, V) = \\text{softmax}(\\frac{QK^{T}}{\\sqrt{d_{k}}})V\n\\]\n\n\nMulti-Head Attention\n\n\nPositional Encoding\n\\[\nPE_{(pos, 2i)} = \\sin(pos / 10000^{2i/d_{model}}) \\\\\nPE_{(pos, 2i+1)} = \\cos(pos / 10000^{2i/d_{model}})\n\\]"
   },
   {
     "objectID": "pages/attention-is-all-you-need/index.html#applications-and-insights",

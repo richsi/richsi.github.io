@@ -187,6 +187,7 @@ window.Quarto = {
   <li><a href="#encoder-decoder-stacks" id="toc-encoder-decoder-stacks" class="nav-link" data-scroll-target="#encoder-decoder-stacks">Encoder Decoder Stacks</a></li>
   <li><a href="#scaled-dot-product-attention" id="toc-scaled-dot-product-attention" class="nav-link" data-scroll-target="#scaled-dot-product-attention">Scaled Dot-Product Attention</a></li>
   <li><a href="#multi-head-attention" id="toc-multi-head-attention" class="nav-link" data-scroll-target="#multi-head-attention">Multi-Head Attention</a></li>
+  <li><a href="#positional-encoding" id="toc-positional-encoding" class="nav-link" data-scroll-target="#positional-encoding">Positional Encoding</a></li>
   </ul></li>
   <li><a href="#applications-and-insights" id="toc-applications-and-insights" class="nav-link" data-scroll-target="#applications-and-insights">Applications and Insights</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -224,14 +225,24 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <section id="encoder-decoder-stacks" class="level3">
 <h3 class="anchored" data-anchor-id="encoder-decoder-stacks">Encoder Decoder Stacks</h3>
-<p><strong>Encoder:</strong> The encoder is combosed of <span class="math inline">\(N = 6\)</span> identical layers.</p>
+<p><strong>Encoder:</strong></p>
 <p><strong>Decoder:</strong></p>
 </section>
 <section id="scaled-dot-product-attention" class="level3">
 <h3 class="anchored" data-anchor-id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
+<p><span class="math display">\[
+\text{Attention}(Q, K, V) = \text{softmax}(\frac{QK^{T}}{\sqrt{d_{k}}})V
+\]</span></p>
 </section>
 <section id="multi-head-attention" class="level3">
 <h3 class="anchored" data-anchor-id="multi-head-attention">Multi-Head Attention</h3>
+</section>
+<section id="positional-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="positional-encoding">Positional Encoding</h3>
+<p><span class="math display">\[
+PE_{(pos, 2i)} = \sin(pos / 10000^{2i/d_{model}}) \\
+PE_{(pos, 2i+1)} = \cos(pos / 10000^{2i/d_{model}})
+\]</span></p>
 </section>
 </section>
 <section id="applications-and-insights" class="level2">
