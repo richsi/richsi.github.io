@@ -11,7 +11,7 @@
     "href": "pages/test_page/index.html",
     "title": "Test page",
     "section": "",
-    "text": "This is a test page\n$ x + 1 = 3 $\n$$\nThis should be in latex\n$$"
+    "text": "Euler’s formula is \\(e^{i\\pi} + 1 = 0\\).\n\\[\n\\int_a^b f(x) dx = F(b) - F(a)\n\\]"
   },
   {
     "objectID": "about.html",
