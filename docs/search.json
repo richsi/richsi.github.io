@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Richard’s Page",
     "section": "",
-    "text": "Test page\n\n\n\n\n\n\nExample\n\n\nTest\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nrichsi\n\n\n\n\n\n\nNo matching items"
+    "text": "Test page\n\n\n\n\n\n\nExample\n\n\nTest\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nrichsi\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers: Attention Is All You Need\n\n\n\n\n\n\nAttention\n\n\nPaper\n\n\nTransformer\n\n\n\n\n\n\n\n\n\nDec 30, 2024\n\n\nrichsi\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "pages/test_page/index.html",
@@ -19,5 +19,47 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html",
+    "href": "pages/attention-is-all-you-need/index.html",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "",
+    "text": "“Attention Is All You Need” by Ashish Vaswani et al., 2017."
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html#background-and-motivation",
+    "href": "pages/attention-is-all-you-need/index.html#background-and-motivation",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "Background and Motivation",
+    "text": "Background and Motivation"
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html#core-concepts",
+    "href": "pages/attention-is-all-you-need/index.html#core-concepts",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "Core Concepts",
+    "text": "Core Concepts\n\nmulti-head attention\n\nnormal attention\n\nfeedforward network\nencoder decoder\nShow code and visualizations"
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html#conclusion",
+    "href": "pages/attention-is-all-you-need/index.html#conclusion",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html#applications-and-insights",
+    "href": "pages/attention-is-all-you-need/index.html#applications-and-insights",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "Applications and Insights",
+    "text": "Applications and Insights"
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html#introduction",
+    "href": "pages/attention-is-all-you-need/index.html#introduction",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "Introduction",
+    "text": "Introduction\n\nimport torch\np = torch.randn((2,2))\np\n\ntensor([[ 0.0231,  0.2700],\n        [-2.0796, -0.6109]])"
   }
 ]

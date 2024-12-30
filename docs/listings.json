@@ -2,7 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/pages/test_page/index.html"
+      "/pages/test_page/index.html",
+      "/pages/attention-is-all-you-need/index.html"
     ]
   }
 ]
