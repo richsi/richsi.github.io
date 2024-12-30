@@ -32,35 +32,28 @@
     "href": "pages/attention-is-all-you-need/index.html#introduction",
     "title": "Transformers: Attention Is All You Need",
     "section": "Introduction",
-    "text": "Introduction\n\nimport torch\np = torch.randn((2,2))\np\n\ntensor([[ 0.0231,  0.2700],\n        [-2.0796, -0.6109]])"
+    "text": "Introduction\n\nWhat is the topic of this guide, and why is it important?\n\nThe transformer is an attention-based network architecture that learns context and meaning by tracking relationships in sequential data like words in a sentence.\n\nWhat problem does this concept or paper aim to solve?\n\nSequence modeling and transduction problems such as machine translation have previously been solved by recurrent neural networks (RNNs) and long short-term memory networks (LSTMs). However, due to sequential dependency, the inherent nature of RNNs prevents its training from being parallelized.\n\nWhat are the main contributions or breakthroughs introduced?\n\nTransformers show significant improvements in both computational efficiency as well as model performance.\n\nHow does this fit into the broader context of the field?\n\nThis paper laid the groundwork for state-of-the-art models such as BERT and GPT which has revolutionized the natural language processing (NLP) field. Beyong NLP, transformers have successfully adapted to other machine learning domains like computer vision and reinforcement learning."
   },
   {
-    "objectID": "pages/attention-is-all-you-need/index.html#background-and-motivation",
-    "href": "pages/attention-is-all-you-need/index.html#background-and-motivation",
+    "objectID": "pages/attention-is-all-you-need/index.html#methods",
+    "href": "pages/attention-is-all-you-need/index.html#methods",
     "title": "Transformers: Attention Is All You Need",
-    "section": "Background and Motivation",
-    "text": "Background and Motivation"
-  },
-  {
-    "objectID": "pages/attention-is-all-you-need/index.html#core-concepts",
-    "href": "pages/attention-is-all-you-need/index.html#core-concepts",
-    "title": "Transformers: Attention Is All You Need",
-    "section": "Core Concepts",
-    "text": "Core Concepts\n\nmulti-head attention\n\nnormal attention\n\nfeedforward network\nencoder decoder\nShow code and visualizations"
+    "section": "Methods",
+    "text": "Methods\n\nEncoder Decoder Stacks\nEncoder: The encoder is combosed of \\(N = 6\\) identical layers.\nDecoder:\n\n\nScaled Dot-Product Attention\n\n\nMulti-Head Attention"
   },
   {
     "objectID": "pages/attention-is-all-you-need/index.html#applications-and-insights",
     "href": "pages/attention-is-all-you-need/index.html#applications-and-insights",
     "title": "Transformers: Attention Is All You Need",
     "section": "Applications and Insights",
-    "text": "Applications and Insights"
+    "text": "Applications and Insights\n\nWhere and how is this concept applied in the real world?\nWhat problems does it solve, and what value does it provide?\nWhat are some examples or use cases where this has been impactful?\nWhat are the broader implications or insights gained from this work?\nHow does this contribute to advancements in the field or industry?"
   },
   {
     "objectID": "pages/attention-is-all-you-need/index.html#conclusion",
     "href": "pages/attention-is-all-you-need/index.html#conclusion",
     "title": "Transformers: Attention Is All You Need",
     "section": "Conclusion",
-    "text": "Conclusion"
+    "text": "Conclusion\n\nWhat are the key takeaways or lessons from this guide?\nWhy is this concept significant in the broader context of the field?\nWhat questions remain unanswered or open for further exploration?\nWhat resources or next steps can help deepen understanding?\nHow can this knowledge be applied or expanded upon in practice?"
   },
   {
     "objectID": "template.html",
@@ -84,11 +77,25 @@
     "text": "Background and Motivation\n\nWhat challenges or problems existed before this work?\nWhat inspired this idea, concept, or solution?\nHow does this approach differ from previous methods?\nWhat are the key assumptions or principles that underpin this work?\nWhy was solving this problem important or necessary?"
   },
   {
-    "objectID": "template.html#core",
-    "href": "template.html#core",
+    "objectID": "template.html#methods",
+    "href": "template.html#methods",
     "title": "Title",
-    "section": "Core",
-    "text": "Core\nGeneral Questions: * What are the foundational ideas or building blocks? * How does this concept or mechanism work step-by-step? * What are the inputs, processes, and outputs involved? * What are the strengths and limitations of this approach? * What are the key equations, algorithms, or methods associated with it?\nVisualization Questions: * Can this idea or process be visualized? If so, how? * What diagrams or graphs can help illustrate the key points? * How can we interpret the behavior or results visually?\nCode Questions: * How can this concept be implemented in code? * What are the key components or parameters of the implementation? * What are some practical examples or demonstrations of this idea? * How does the code reflect the theory or process behind the concept?"
+    "section": "Methods",
+    "text": "Methods\nGeneral Questions: * What are the foundational ideas or building blocks? * How does this concept or mechanism work step-by-step? * What are the inputs, processes, and outputs involved? * What are the strengths and limitations of this approach? * What are the key equations, algorithms, or methods associated with it?"
+  },
+  {
+    "objectID": "template.html#visualization-questions",
+    "href": "template.html#visualization-questions",
+    "title": "Title",
+    "section": "Visualization Questions:",
+    "text": "Visualization Questions:\n\nCan this idea or process be visualized? If so, how?\nWhat diagrams or graphs can help illustrate the key points?\nHow can we interpret the behavior or results visually?"
+  },
+  {
+    "objectID": "template.html#code-questions",
+    "href": "template.html#code-questions",
+    "title": "Title",
+    "section": "Code Questions:",
+    "text": "Code Questions:\n\nHow can this concept be implemented in code?\nWhat are the key components or parameters of the implementation?\nWhat are some practical examples or demonstrations of this idea?\nHow does the code reflect the theory or process behind the concept?"
   },
   {
     "objectID": "template.html#application-and-insights",

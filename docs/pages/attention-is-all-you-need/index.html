@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -72,11 +38,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-0fffea90c1c5a63cd75046b2551b9ce5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-720692e967a6e03c6eda9ebe10da8b55.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-dark-720692e967a6e03c6eda9ebe10da8b55.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,11 +71,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -181,7 +176,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#encoder-decoder-stacks" id="toc-encoder-decoder-stacks" class="nav-link" data-scroll-target="#encoder-decoder-stacks">Encoder Decoder Stacks</a></li>
+  <li><a href="#scaled-dot-product-attention" id="toc-scaled-dot-product-attention" class="nav-link" data-scroll-target="#scaled-dot-product-attention">Scaled Dot-Product Attention</a></li>
+  <li><a href="#multi-head-attention" id="toc-multi-head-attention" class="nav-link" data-scroll-target="#multi-head-attention">Multi-Head Attention</a></li>
+  </ul></li>
+  <li><a href="#applications-and-insights" id="toc-applications-and-insights" class="nav-link" data-scroll-target="#applications-and-insights">Applications and Insights</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -192,36 +203,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://arxiv.org/abs/1706.03762">“Attention Is All You Need”</a> by Ashish Vaswani et al., 2017.</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div id="cell-3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> torch.randn((<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>tensor([[ 0.0231,  0.2700],
-        [-2.0796, -0.6109]])</code></pre>
-</div>
-</div>
-</section>
-<section id="background-and-motivation" class="level2">
-<h2 class="anchored" data-anchor-id="background-and-motivation">Background and Motivation</h2>
-</section>
-<section id="core-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="core-concepts">Core Concepts</h2>
 <ul>
-<li><p>multi-head attention</p>
-<ul>
-<li>normal attention</li>
-</ul></li>
-<li><p>feedforward network</p></li>
-<li><p>encoder decoder</p></li>
-<li><p>Show code and visualizations</p></li>
+<li>What is the topic of this guide, and why is it important?</li>
 </ul>
+<p>The transformer is an attention-based network architecture that learns context and meaning by tracking relationships in sequential data like words in a sentence.</p>
+<ul>
+<li>What problem does this concept or paper aim to solve?</li>
+</ul>
+<p>Sequence modeling and transduction problems such as machine translation have previously been solved by recurrent neural networks (RNNs) and long short-term memory networks (LSTMs). However, due to sequential dependency, the inherent nature of RNNs prevents its training from being parallelized.</p>
+<ul>
+<li>What are the main contributions or breakthroughs introduced?</li>
+</ul>
+<p>Transformers show significant improvements in both computational efficiency as well as model performance.</p>
+<ul>
+<li>How does this fit into the broader context of the field?</li>
+</ul>
+<p>This paper laid the groundwork for state-of-the-art models such as BERT and GPT which has revolutionized the natural language processing (NLP) field. Beyong NLP, transformers have successfully adapted to other machine learning domains like computer vision and reinforcement learning.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<section id="encoder-decoder-stacks" class="level3">
+<h3 class="anchored" data-anchor-id="encoder-decoder-stacks">Encoder Decoder Stacks</h3>
+<p><strong>Encoder:</strong> The encoder is combosed of <span class="math inline">\(N = 6\)</span> identical layers.</p>
+<p><strong>Decoder:</strong></p>
+</section>
+<section id="scaled-dot-product-attention" class="level3">
+<h3 class="anchored" data-anchor-id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
+</section>
+<section id="multi-head-attention" class="level3">
+<h3 class="anchored" data-anchor-id="multi-head-attention">Multi-Head Attention</h3>
+</section>
 </section>
 <section id="applications-and-insights" class="level2">
 <h2 class="anchored" data-anchor-id="applications-and-insights">Applications and Insights</h2>
+<ul>
+<li>Where and how is this concept applied in the real world?</li>
+<li>What problems does it solve, and what value does it provide?</li>
+<li>What are some examples or use cases where this has been impactful?</li>
+<li>What are the broader implications or insights gained from this work?</li>
+<li>How does this contribute to advancements in the field or industry?</li>
+</ul>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<ul>
+<li>What are the key takeaways or lessons from this guide?</li>
+<li>Why is this concept significant in the broader context of the field?</li>
+<li>What questions remain unanswered or open for further exploration?</li>
+<li>What resources or next steps can help deepen understanding?</li>
+<li>How can this knowledge be applied or expanded upon in practice?</li>
+</ul>
 
 
 </section>
@@ -363,7 +394,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = false;
+  const darkModeDefault = true;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
