@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Richard’s Page",
+    "section": "",
+    "text": "Test page\n\n\n\n\n\n\nExample\n\n\nTest\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nrichsi\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "pages/test_page/index.html",
+    "href": "pages/test_page/index.html",
+    "title": "Test page",
+    "section": "",
+    "text": "This is a test page\n$ x + 1 = 3 $\n$$\nThis should be in latex\n$$"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  }
+]

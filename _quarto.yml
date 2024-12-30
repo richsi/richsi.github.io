@@ -1,0 +1,17 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "richsi.github.io"
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/richsi
+      - icon: linkedin
+        href: https://www.linkedin.com/in/richhsi/
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
