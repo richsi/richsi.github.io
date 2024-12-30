@@ -7,13 +7,6 @@
     "text": "Test page\n\n\n\n\n\n\nExample\n\n\nTest\n\n\n\n\n\n\n\n\n\nDec 29, 2024\n\n\nrichsi\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers: Attention Is All You Need\n\n\n\n\n\n\nAttention\n\n\nPaper\n\n\nTransformer\n\n\n\n\n\n\n\n\n\nDec 30, 2024\n\n\nrichsi\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "pages/test_page/index.html",
-    "href": "pages/test_page/index.html",
-    "title": "Test page",
-    "section": "",
-    "text": "Euler’s formula is \\(e^{i\\pi} + 1 = 0\\).\n\\[\n\\int_a^b f(x) dx = F(b) - F(a)\n\\]"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -21,11 +14,25 @@
     "text": "About this site"
   },
   {
+    "objectID": "pages/test_page/index.html",
+    "href": "pages/test_page/index.html",
+    "title": "Test page",
+    "section": "",
+    "text": "Euler’s formula is \\(e^{i\\pi} + 1 = 0\\).\n\\[\n\\int_a^b f(x) dx = F(b) - F(a)\n\\]"
+  },
+  {
     "objectID": "pages/attention-is-all-you-need/index.html",
     "href": "pages/attention-is-all-you-need/index.html",
     "title": "Transformers: Attention Is All You Need",
     "section": "",
     "text": "“Attention Is All You Need” by Ashish Vaswani et al., 2017."
+  },
+  {
+    "objectID": "pages/attention-is-all-you-need/index.html#introduction",
+    "href": "pages/attention-is-all-you-need/index.html#introduction",
+    "title": "Transformers: Attention Is All You Need",
+    "section": "Introduction",
+    "text": "Introduction\n\nimport torch\np = torch.randn((2,2))\np\n\ntensor([[ 0.0231,  0.2700],\n        [-2.0796, -0.6109]])"
   },
   {
     "objectID": "pages/attention-is-all-you-need/index.html#background-and-motivation",
@@ -42,13 +49,6 @@
     "text": "Core Concepts\n\nmulti-head attention\n\nnormal attention\n\nfeedforward network\nencoder decoder\nShow code and visualizations"
   },
   {
-    "objectID": "pages/attention-is-all-you-need/index.html#conclusion",
-    "href": "pages/attention-is-all-you-need/index.html#conclusion",
-    "title": "Transformers: Attention Is All You Need",
-    "section": "Conclusion",
-    "text": "Conclusion"
-  },
-  {
     "objectID": "pages/attention-is-all-you-need/index.html#applications-and-insights",
     "href": "pages/attention-is-all-you-need/index.html#applications-and-insights",
     "title": "Transformers: Attention Is All You Need",
@@ -56,10 +56,52 @@
     "text": "Applications and Insights"
   },
   {
-    "objectID": "pages/attention-is-all-you-need/index.html#introduction",
-    "href": "pages/attention-is-all-you-need/index.html#introduction",
+    "objectID": "pages/attention-is-all-you-need/index.html#conclusion",
+    "href": "pages/attention-is-all-you-need/index.html#conclusion",
     "title": "Transformers: Attention Is All You Need",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "template.html",
+    "href": "template.html",
+    "title": "Title",
+    "section": "",
+    "text": "Paper Name by Author Name et al., year."
+  },
+  {
+    "objectID": "template.html#introduction",
+    "href": "template.html#introduction",
+    "title": "Title",
     "section": "Introduction",
-    "text": "Introduction\n\nimport torch\np = torch.randn((2,2))\np\n\ntensor([[ 0.0231,  0.2700],\n        [-2.0796, -0.6109]])"
+    "text": "Introduction\n\nWhat is the topic of this guide, and why is it important?\nWhat problem does this concept or paper aim to solve?\nWhat are the main contributions or breakthroughs introduced?\nHow does this fit into the broader context of the field?\nWho would benefit from understanding this guide, and what will they learn?"
+  },
+  {
+    "objectID": "template.html#background-and-motivation",
+    "href": "template.html#background-and-motivation",
+    "title": "Title",
+    "section": "Background and Motivation",
+    "text": "Background and Motivation\n\nWhat challenges or problems existed before this work?\nWhat inspired this idea, concept, or solution?\nHow does this approach differ from previous methods?\nWhat are the key assumptions or principles that underpin this work?\nWhy was solving this problem important or necessary?"
+  },
+  {
+    "objectID": "template.html#core",
+    "href": "template.html#core",
+    "title": "Title",
+    "section": "Core",
+    "text": "Core\nGeneral Questions: * What are the foundational ideas or building blocks? * How does this concept or mechanism work step-by-step? * What are the inputs, processes, and outputs involved? * What are the strengths and limitations of this approach? * What are the key equations, algorithms, or methods associated with it?\nVisualization Questions: * Can this idea or process be visualized? If so, how? * What diagrams or graphs can help illustrate the key points? * How can we interpret the behavior or results visually?\nCode Questions: * How can this concept be implemented in code? * What are the key components or parameters of the implementation? * What are some practical examples or demonstrations of this idea? * How does the code reflect the theory or process behind the concept?"
+  },
+  {
+    "objectID": "template.html#application-and-insights",
+    "href": "template.html#application-and-insights",
+    "title": "Title",
+    "section": "Application and Insights",
+    "text": "Application and Insights\n\nWhere and how is this concept applied in the real world?\nWhat problems does it solve, and what value does it provide?\nWhat are some examples or use cases where this has been impactful?\nWhat are the broader implications or insights gained from this work?\nHow does this contribute to advancements in the field or industry?"
+  },
+  {
+    "objectID": "template.html#conclusion",
+    "href": "template.html#conclusion",
+    "title": "Title",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nWhat are the key takeaways or lessons from this guide?\nWhy is this concept significant in the broader context of the field?\nWhat questions remain unanswered or open for further exploration?\nWhat resources or next steps can help deepen understanding?\nHow can this knowledge be applied or expanded upon in practice?"
   }
 ]
