@@ -274,18 +274,20 @@ window.Quarto = {
 <p><span class="math display">\[
 \text{Attention}(Q, K, V) = \text{softmax}(\frac{QK^{T}}{\sqrt{d_{k}}})V
 \]</span></p>
-<p>Scaled Dot-Product Attention takes in three inputs: query <span class="math inline">\(\bf{Q}\)</span>, key <span class="math inline">\(\bf{K}\)</span>, and value <span class="math inline">\(\bf{V}\)</span>.</p>
+<p>Scaled Dot-Product Attention takes in three inputs: query <span class="math inline">\(\bf{Q}\)</span>, key <span class="math inline">\(\bf{K}\)</span>, and value <span class="math inline">\(\bf{V}\)</span>, where <span class="math inline">\(X\)</span> is the input and <span class="math inline">\(W^Q\)</span>, <span class="math inline">\(W^K\)</span>, <span class="math inline">\(W^V\)</span> are learnable weight matrices specific to queries, keys, and values.</p>
 <p><span class="math display">\[
 \begin{aligned}
 Q = XW^Q\\
 K = XW^K\\
 V = XW^V\\
 \end{aligned}
-\]</span> where <span class="math inline">\(X\)</span> is the input and <span class="math inline">\(W^Q\)</span>, <span class="math inline">\(W^K\)</span>, <span class="math inline">\(W^V\)</span> are learnable weight matrices specific to queries, keys, and values.</p>
-<p><span class="math inline">\(\bf{X}\)</span> represents the input embeddings to the transformer layer. For the first layer, <span class="math inline">\(X\)</span> = Word Embedding + Positional Encoding. Word embedding is a vector that represents the semantic meaning of a word (or token). Positional encoding is a vector that contains informations about a token’s position in a sequence by mapping that information to a latent space.</p>
-<p><span class="math inline">\(\bf{Q}\)</span> represents the current token’s representation to “query” information from other tokens. It’s derived from the combined word and positional information.</p>
-<p><span class="math inline">\(\bf{K}\)</span> represents all tokens in the space and helps determine the relevance of each token to the query token. Like <span class="math inline">\(Q\)</span>, it’s based on the same input embeddings (word + positional) but transformed different via <span class="math inline">\(W^K\)</span>.</p>
-<p><span class="math inline">\(\bf{V}\)</span> represents the information associated with each token. It is the actual data that gets weighted and aggregated based on attention scores.</p>
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\bf{X}\)</span> represents the input embeddings to the transformer layer. For the first layer, <span class="math inline">\(X\)</span> = Word Embedding + Positional Encoding. Word embedding is a vector that represents the semantic meaning of a word (or token). Positional encoding is a vector that contains informations about a token’s position in a sequence by mapping that information to a latent space.</p></li>
+<li><p><span class="math inline">\(\bf{Q}\)</span> represents the current token’s representation to “query” information from other tokens. It’s derived from the combined word and positional information.</p></li>
+<li><p><span class="math inline">\(\bf{K}\)</span> represents all tokens in the space and helps determine the relevance of each token to the query token. Like <span class="math inline">\(Q\)</span>, it’s based on the same input embeddings (word + positional) but transformed different via <span class="math inline">\(W^K\)</span>.</p></li>
+<li><p><span class="math inline">\(\bf{V}\)</span> represents the information associated with each token. It is the actual data that gets weighted and aggregated based on attention scores.</p></li>
+</ul>
 <p>The dimensions of <span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span>, and <span class="math inline">\(V\)</span> are determined by the model’s <strong>latent space dimensionality</strong> (<span class="math inline">\(d_{model}\)</span>) and the number of <strong>attention heads</strong> (<span class="math inline">\(h\)</span>). In this example, we initialize the latent space dimension to be <strong>512</strong> and the number of attention heads to be <strong>8</strong>.</p>
 <div id="cell-12" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scaled_dot_product_attention(Q, K, V):</span>
