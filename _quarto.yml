@@ -17,3 +17,4 @@ format:
       dark: darkly
       light: flatly
     css: styles.css
+    highlight-style: atom-one
