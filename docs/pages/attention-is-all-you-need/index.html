@@ -283,41 +283,83 @@ V = XW^V\\
 \end{aligned}
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(\bf{X}\)</span> represents the input embeddings to the transformer layer. For the first layer, <span class="math inline">\(X\)</span> = Word Embedding + Positional Encoding. Word embedding is a vector that represents the semantic meaning of a word (or token). Positional encoding is a vector that contains informations about a token’s position in a sequence by mapping that information to a latent space.</p></li>
+<li><p><span class="math inline">\(\bf{X}\)</span> represents the input embeddings to the transformer layer. For the first layer, <span class="math inline">\(X\)</span> = Word Embedding + Positional Encoding. In subsequent layers, <span class="math inline">\(X\)</span> is the output of the previous transformer layer. <strong>Word embedding</strong> is a vector that represents the semantic meaning of a word (or token). <strong>Positional encoding</strong> is a vector that contains informations about a token’s position in a sequence by mapping that information to a latent space.</p></li>
 <li><p><span class="math inline">\(\bf{Q}\)</span> represents the current token’s representation to “query” information from other tokens. It’s derived from the combined word and positional information.</p></li>
 <li><p><span class="math inline">\(\bf{K}\)</span> represents all tokens in the space and helps determine the relevance of each token to the query token. Like <span class="math inline">\(Q\)</span>, it’s based on the same input embeddings (word + positional) but transformed different via <span class="math inline">\(W^K\)</span>.</p></li>
 <li><p><span class="math inline">\(\bf{V}\)</span> represents the information associated with each token. It is the actual data that gets weighted and aggregated based on attention scores.</p></li>
 </ul>
 <p>The dimensions of <span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span>, and <span class="math inline">\(V\)</span> are determined by the model’s <strong>latent space dimensionality</strong> (<span class="math inline">\(d_{model}\)</span>) and the number of <strong>attention heads</strong> (<span class="math inline">\(h\)</span>). In this example, we initialize the latent space dimension to be <strong>512</strong> and the number of attention heads to be <strong>8</strong>.</p>
-<div id="cell-12" class="cell" data-execution_count="13">
+<div id="cell-12" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scaled_dot_product_attention(Q, K, V):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">""" </span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Compute scaled dot-product attention</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Args:</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Q: Query matrix, shape (N, d_k)</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  K: Key matrix, shape (N, d_k)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">  V: Value matrix, shape (N, d_v)</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  output: Weighted sum of values after applying attention, shape (N, d_v)</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  attention_weights: shape (N, N)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  d_k <span class="op">=</span> Q.shape[<span class="dv">1</span>] <span class="co"># Dimensionality of keys/queries</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Computing scaled attention scores</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  scores <span class="op">=</span> np.dot(Q, K.T) <span class="op">/</span> np.sqrt(d_k) <span class="co"># Shape: (N,d_v) @ (d_v,N) -&gt; (N, N)</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Apply softmax to get attention weights</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  attention_weights <span class="op">=</span> np.exp(scores) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(scores), axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># axis=1 for column wise addition</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Computing weighted sum of values</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  output <span class="op">=</span> np.dot(attention_weights, V) <span class="co"># Shape: (N,N) @ (N,d_v) -&gt; (N,d_v)</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> output, attention_weights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Q, K, V: Query, Key, and Value matrices (numpy arrays).</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">      Shapes: (N, d_k) for Q and K, (N, d_v) for V.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  output: Weighted sum of values after applying attention, shape (N, d_v)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  attention_weights: shape (N, N)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  d_k <span class="op">=</span> Q.shape[<span class="dv">1</span>] <span class="co"># Dimensionality of keys/queries</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  scores <span class="op">=</span> np.dot(Q, K.T) <span class="op">/</span> np.sqrt(d_k) <span class="co"># Shape: (N,d_v) @ (d_v,N) -&gt; (N, N)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  attention_weights <span class="op">=</span> np.exp(scores) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(scores), axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># axis=1 for column wise addition</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  output <span class="op">=</span> np.dot(attention_weights, V) <span class="co"># Shape: (N,N) @ (N,d_v) -&gt; (N,d_v)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> output, attention_weights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="multi-head-attention" class="level3">
 <h3 class="anchored" data-anchor-id="multi-head-attention">Multi-Head Attention</h3>
+<p><span class="math display">\[
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{Attention}_1, \text{Attention}_2, ..., \text{Attention}_h)W^O
+\]</span></p>
+<p>Multi-head attention scales the concept of scaled dot-product attention by running multiple attention heads in parallel. Each haed operates in a different subspace which optimizes feature learning. For example, one head might focus on syntax while another head focuses on semantics.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li><p><strong>Linear Projections</strong>: Split <span class="math inline">\(Q, K, V\)</span> into <span class="math inline">\(h\)</span> subspaces, one for each head.</p></li>
+<li><p><strong>Parallel Attention</strong>: Perform scaled dot-product attention independently for each head.</p></li>
+<li><p><strong>Concatenation</strong>: Combine the outputs of all heads into a single matrix.</p></li>
+<li><p><strong>Final Linear Transformation</strong>: Project the concatenated matrix back to <span class="math inline">\(d_{model}\)</span> using <span class="math inline">\(W^O\)</span>.</p></li>
+</ol>
+<div id="cell-16" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multi_head_attention(Q, K, V, num_heads, d_model):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Computes multi-head attention.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Q, K, V: Query, Key, and Value matrices (numpy arrays).</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">      Shapes: (N, d_k) for Q and K, (N, d_v) for V. </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">  num_heads: Number of attention heads.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">  d_model: Dimensionality of the model.</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns:</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">  output: Multi-head attention output. Shape: (N, d_model)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  d_k <span class="op">=</span> d_model <span class="op">//</span> num_heads</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  d_v <span class="op">=</span> d_k <span class="co"># same as d_k</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Initializing weights</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  W_Q <span class="op">=</span> np.random.rand(num_heads, d_model, d_k)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  W_K <span class="op">=</span> np.random.rand(num_heads, d_model, d_k)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  W_V <span class="op">=</span> np.random.rand(num_heads, d_model, d_v)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  W_O <span class="op">=</span> np.random.rand(num_heads <span class="op">*</span> d_v, d_model)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split heads and compute attention</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  attention_heads <span class="op">=</span> []</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_heads):</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    Q_i <span class="op">=</span> np.dot(Q, W_Q[i]) <span class="co"># Shape: (N, d_k)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    K_i <span class="op">=</span> np.dot(Q, W_K[i]) <span class="co"># Shape: (N, d_k)</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    V_i <span class="op">=</span> np.dot(Q, W_V[i]) <span class="co"># Shape: (N, d_v)</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    head_output, _ <span class="op">=</span> scaled_dot_product_attention(Q_i, K_i, V_i)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    attention_heads.append(head_output)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  concatenated <span class="op">=</span> np.concatenate(attention_heads, axis<span class="op">=-</span><span class="dv">1</span>) <span class="co"># Shape: (N, num_heads * d_v)</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  output <span class="op">=</span> np.dot(concatenated, W_O) <span class="co"># Shape: (N, d_model)</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="positional-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="positional-encoding">Positional Encoding</h3>
