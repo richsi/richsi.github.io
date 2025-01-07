@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="richsi">
-<meta name="dcterms.date" content="2024-12-29">
+<meta name="dcterms.date" content="2025-01-06">
 
-<title>Test page – richsi.github.io</title>
+<title>Machine Learning - Tom Mitchell – richsi.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -143,10 +143,10 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Test page</h1>
+      <h1 class="title">Machine Learning - Tom Mitchell</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Example</div>
-                <div class="quarto-category">Test</div>
+                <div class="quarto-category">Book</div>
+                <div class="quarto-category">Notes</div>
               </div>
                   </div>
   </div>
@@ -164,7 +164,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 29, 2024</p>
+        <p class="date">January 6, 2025</p>
       </div>
     </div>
     
@@ -175,8 +175,18 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#well-posed-learning-problems" id="toc-well-posed-learning-problems" class="nav-link" data-scroll-target="#well-posed-learning-problems">Well-Posed Learning Problems</a></li>
+  <li><a href="#designing-a-learning-system" id="toc-designing-a-learning-system" class="nav-link" data-scroll-target="#designing-a-learning-system">Designing a Learning System</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -185,12 +195,86 @@ window.Quarto = {
 
 
 
-<p>Euler’s formula is <span class="math inline">\(e^{i\pi} + 1 = 0\)</span>.</p>
-<p><span class="math display">\[
-\int_a^b f(x) dx = F(b) - F(a)
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Machine learning is inherently a multidisciplinary field. It draws on results from artificial intelligence, probability, statistics, complexity theory, and many more.</p>
+<hr>
+<section id="well-posed-learning-problems" class="level3">
+<h3 class="anchored" data-anchor-id="well-posed-learning-problems">Well-Posed Learning Problems</h3>
+<blockquote class="blockquote">
+<p><strong>Definition</strong>: A computer program is said to <strong>learn</strong> from experience <span class="math inline">\(E\)</span> with respect to some class of tasks <span class="math inline">\(T\)</span> and performance measure <span class="math inline">\(P\)</span>, if its performance at tasks in <span class="math inline">\(T\)</span>, as measured by <span class="math inline">\(P\)</span>, improves with experience <span class="math inline">\(E\)</span>.</p>
+</blockquote>
+<p><strong>Robot Driving Learning Problem:</strong></p>
+<ul>
+<li>Task <span class="math inline">\(T\)</span>: driving on public four-lane highways using vision sensors</li>
+<li>Performance measure <span class="math inline">\(P\)</span>: average distance traveled before an error</li>
+<li>Training experience <span class="math inline">\(E\)</span>: a sequence of images and steering commands recorded while observing a human driver</li>
+</ul>
+<hr>
+</section>
+<section id="designing-a-learning-system" class="level3">
+<h3 class="anchored" data-anchor-id="designing-a-learning-system">Designing a Learning System</h3>
+<p>Consider designing a program to learn to player checkers. Assume no external teacher.</p>
+<ul>
+<li>Task <span class="math inline">\(T\)</span>: playing checkers</li>
+<li>Performance measure <span class="math inline">\(P\)</span>: percent of games won</li>
+<li>Training experience <span class="math inline">\(E\)</span>: games played against itself</li>
+</ul>
+<p><strong>Choosing the Training Experience</strong></p>
+<ul>
+<li>One key attribute is whether the training experience provides direct or indirect feedback regarding the choices made by the performance system
+<ul>
+<li><em>Direct</em> training examples can consist of individual checker board states and the correct move for each</li>
+<li><em>Indirect</em> training examples may consist of move sequences and their final outcomes</li>
+</ul></li>
+<li>A second important attribute of the training experience is the degree to which the learner controls the sequence of training examples</li>
+<li>A third important attribute is how well it represents the distribution of examples over which the final system performance <span class="math inline">\(P\)</span> must be measured
+<ul>
+<li>In practice, it is often necessary to learn from a distribution of examples that is somewhat different from those on which the final system will be evaluated</li>
+<li>Most current theory of machine learning rests on the assumption that the distribution of training examples is identical to the distribution of test examples</li>
+</ul></li>
+</ul>
+<p><strong>Choosing the Target Function</strong></p>
+<p>The target function will determine what type of knowledge will be learned and how it will be used by the performance program. Let us assume a target function <span class="math inline">\(V\)</span> that maps any legal board state from the set <span class="math inline">\(B\)</span> to some real value. We intend for this target function <span class="math inline">\(V\)</span> to assign higher scores to better board states</p>
+<p>Let us define the target value <span class="math inline">\(V(b)\)</span> for an arbitrary board state <span class="math inline">\(b\)</span> in <span class="math inline">\(B\)</span>, as follows:</p>
+<ol type="1">
+<li>if <span class="math inline">\(b\)</span> is a final board state that is won, then <span class="math inline">\(V(b)\)</span> = 100</li>
+<li>if <span class="math inline">\(b\)</span> is a final board state that is lost, then <span class="math inline">\(V(b)\)</span> = -100</li>
+<li>if <span class="math inline">\(b\)</span> is a final board state that is drawn, then <span class="math inline">\(V(b)\)</span> = 0</li>
+<li>if <span class="math inline">\(b\)</span> is not a final state in the game, then <span class="math inline">\(V(b) = V(b')\)</span> where <span class="math inline">\(b'\)</span> is the best final board state that can be achieved starting from <span class="math inline">\(b\)</span> and playing optimally until the end of the game</li>
+</ol>
+<p>However, searching for the optimal line of play, all the way until the end of the game, is not efficiently computable. The goal of learning in this case is to discover an <em>operational</em> description of <span class="math inline">\(V\)</span>. A description that can be used by the checkers-playing program to evaluate states and select moves within realistic time bounds. Thus, we have reduced the learning task in this case to the problem of discovering an <em>operational description of the ideal target function</em> <span class="math inline">\(V\)</span>.</p>
+<p><strong>Choosing a Representation for the Target Function</strong></p>
+<p>After specifying the ideal target function <span class="math inline">\(V\)</span>, we must choose a representation that the learning program will use to describe the function <span class="math inline">\(\hat{V}\)</span> that it will learn. The choice of representation involves a crucial tradeoff. On one hand, we wish to pick a very expressive representation to allow represnting as close an approximation as possible to the target function <span class="math inline">\(V\)</span>. On the other hand, the more expressive the representation, the more training data the program will require in order to choose among the alternative hypotheses it can represent.</p>
+<p><strong>Choosing a Function Approximation Algorithm</strong></p>
+<p>While it is easy to assign a value to board states that correspond to the end of the game, it is less obvious how to assign training values to the <em>intermediate</em> board states that occur before the game’s end. The rule for estimating training values is summarized as</p>
+<blockquote class="blockquote">
+<p><strong>Rule for estimating training values:</strong> <span class="math display">\[
+V_{train}(b) \leftarrow \hat{V}(Successor(b))
 \]</span></p>
+</blockquote>
+<p><span class="math inline">\(\hat{V}\)</span> denotes the learner’s current approximation to <span class="math inline">\(V\)</span> and <span class="math inline">\(Successor(b)\)</span> denotes the next board state following <span class="math inline">\(b\)</span>. Iteratively estimating training values based on estimates of successor state values can be proven to converge toward perfect estimates of <span class="math inline">\(V_{train}\)</span>.</p>
+<p><strong>Adjusting the Weights</strong></p>
+<p>First, define the <em>best fit</em> to the training data. One common approach is to define the best hypothesis, or set of weights, which minimizes the squared error <span class="math inline">\(E\)</span> between training (real) values and values predicted by hypothesis <span class="math inline">\(\hat{V}\)</span>.</p>
+<blockquote class="blockquote">
+<p><span class="math display">\[
+E \equiv \sum_{\langle b, V_{train}(b) \rangle \in\ training\ examples} (V_{train}(b) - \hat{V}(b))^2
+\]</span></p>
+</blockquote>
+<p>Thus, we seek the weights, or equivalently the <span class="math inline">\(\hat{V}\)</span>, that minimizes <span class="math inline">\(E\)</span> for the observed training examples. Many algorithms will incremently refine the weights as new training examples become avavilable and become rebust to errors in these estimated training values. One example is least mean squares (LMS), which performs stochastic gradient-descent search through the space of hypotheses (weight values) to minimize the squared error <span class="math inline">\(E\)</span>.</p>
+<blockquote class="blockquote">
+<p><strong>LMS weight update rule</strong></p>
+<p>For each training example <span class="math inline">\(\langle b, V_{train}(b)\rangle\)</span></p>
+<ul>
+<li>Use the current weights to calculate <span class="math inline">\(\hat{V}(b)\)</span></li>
+<li>For each weight <span class="math inline">\(w_i\)</span>, update it as <span class="math inline">\(w_i \leftarrow w_i + \eta (V_{train}(b) - \hat{V}(b))x_i\)</span></li>
+</ul>
+</blockquote>
+<p>Here, <span class="math inline">\(\eta\)</span> is a small constant (e.g., 0.1) that moderates the size of the weight update. For a deeper intuitive understanding, notice that when the error <span class="math inline">\((V_{train}(b) - \hat{V}(b))\)</span> is zero, the weights are not changed. However, if the is positive, that means <span class="math inline">\(\hat{V}(b)\)</span> is too small and the weight is increased in proportion to the value of its corresponding feature.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
