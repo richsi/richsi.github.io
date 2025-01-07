@@ -189,6 +189,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#appropriate-problems-for-decision-tree-learning" id="toc-appropriate-problems-for-decision-tree-learning" class="nav-link" data-scroll-target="#appropriate-problems-for-decision-tree-learning">Appropriate Problems for Decision Tree Learning</a></li>
   <li><a href="#the-basic-decision-tree-learning-algorithm" id="toc-the-basic-decision-tree-learning-algorithm" class="nav-link" data-scroll-target="#the-basic-decision-tree-learning-algorithm">The Basic Decision Tree Learning Algorithm</a></li>
+  <li><a href="#inductive-bias-in-decision-tree-learning" id="toc-inductive-bias-in-decision-tree-learning" class="nav-link" data-scroll-target="#inductive-bias-in-decision-tree-learning">Inductive Bias in Decision Tree Learning</a></li>
+  <li><a href="#issues-in-decision-tree-learning" id="toc-issues-in-decision-tree-learning" class="nav-link" data-scroll-target="#issues-in-decision-tree-learning">Issues in Decision Tree Learning</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -261,11 +263,9 @@ V_{train}(b) \leftarrow \hat{V}(Successor(b))
 <p><span class="math inline">\(\hat{V}\)</span> denotes the learner’s current approximation to <span class="math inline">\(V\)</span> and <span class="math inline">\(Successor(b)\)</span> denotes the next board state following <span class="math inline">\(b\)</span>. Iteratively estimating training values based on estimates of successor state values can be proven to converge toward perfect estimates of <span class="math inline">\(V_{train}\)</span>.</p>
 <p><strong>Adjusting the Weights</strong></p>
 <p>First, define the <em>best fit</em> to the training data. One common approach is to define the best hypothesis, or set of weights, which minimizes the squared error <span class="math inline">\(E\)</span> between training (real) values and values predicted by hypothesis <span class="math inline">\(\hat{V}\)</span>.</p>
-<blockquote class="blockquote">
 <p><span class="math display">\[
 E \equiv \sum_{\langle b, V_{train}(b) \rangle \in\ training\ examples} (V_{train}(b) - \hat{V}(b))^2
 \]</span></p>
-</blockquote>
 <p>Thus, we seek the weights, or equivalently the <span class="math inline">\(\hat{V}\)</span>, that minimizes <span class="math inline">\(E\)</span> for the observed training examples. Many algorithms will incremently refine the weights as new training examples become avavilable and become rebust to errors in these estimated training values. One example is least mean squares (LMS), which performs stochastic gradient-descent search through the space of hypotheses (weight values) to minimize the squared error <span class="math inline">\(E\)</span>.</p>
 <blockquote class="blockquote">
 <p><strong>LMS weight update rule</strong></p>
@@ -351,6 +351,35 @@ Gain(S, Wind) &amp;= Entropy(S) - \sum_{v\in(Weak, Strong)} \frac{|S_v|}{|S|} En
 &amp;=0.048
 \end{aligned}
 \]</span></p>
+<p><strong>Hypothesis Space Search in Decision Tree Learning</strong></p>
+<ul>
+<li>ID3 in its pure form performs no backtracking in its search. Therefore, it is susceptible to the usual risks of hill-climbing search without backtracking: converging to locally optimal solutions that are not globally optimimal.</li>
+<li>ID3 uses all training examples at each step in the search to make statistically based decisions regarding how to refine its current hypothesis. One advantage of using statistical properities (e.g., information gain) is that the resulting search is much less sensitive to errors in individual training examples.</li>
+</ul>
+<hr>
+</section>
+<section id="inductive-bias-in-decision-tree-learning" class="level3">
+<h3 class="anchored" data-anchor-id="inductive-bias-in-decision-tree-learning">Inductive Bias in Decision Tree Learning</h3>
+<p>Inductive bias is the set of assumptions that, together with the training data, deductively justify the classifications assigned by the learner to future instances. ID3 chooses the first acceptable tree it encounters in its simple-to-complex, hill-climbing search through the space of possible trees. It selects in favor of shorter trees over longer ones, and selects trees that place the attributes with highest information gain closest to the root.</p>
+<p><strong>Restriction Biases and Preference Biases</strong></p>
+<p>The inductive bias of ID3 follows from its <em>search strategy</em>, whereas the inductive bias of Candidate-Elimination algorithm follows from the definition of its <em>search space</em> (incomplete hypothesis space).</p>
+<p>Thus, ID3 demonstrates a preference bias for shorter hypotheses. In contrast, the bias of Candidate-Elimination algorithm is in the form of a categorial restriction on the set of hypothesis considered. This form of bias is called <em>restriction bias</em>.</p>
+<p>Typically, preference bias is more desirable as it allows the learner to work within a complete hypothesis space that is assured to contain the unknown target function.</p>
+<p><strong>Why Prefer Short Hypotheses?</strong></p>
+<blockquote class="blockquote">
+<p><strong>Occam’s razor:</strong> Prefer the simplest hypothesis that fits the data.</p>
+</blockquote>
+<p>Why? One argument is that because there are fewer short hypotheses than long ones (based on straightforward combinational arguments), it is less likely that one will find a short hypothesis that coincidentally fits the training data. In contrast, there are often many very complex hypotheses that fit the current training data but fail to generalize correctly to subsequent data.</p>
+<p>Problems with Occam’s razor:</p>
+<ul>
+<li>There are many small sets of hypotheses that one can define. Why should we believe that the small set of hypotheses consisting of decision trees with <em>short descriptions</em> should be any more relevant than the multitude of other small sets of hypotheses that we might define before?</li>
+<li>The size of a hypothesis is determined by the particular representation used <em>internally</em> by the learner. Two learners using different internal representations could therefore arrive at different hypotheses, both justifying their contradictory conlcusions by Occam’s razor.</li>
+<li>Occam’s razor will product two different hypotheses from the same training examples when it is applied by two learners that perceive these examples in terms of different internal representations.</li>
+</ul>
+<hr>
+</section>
+<section id="issues-in-decision-tree-learning" class="level3">
+<h3 class="anchored" data-anchor-id="issues-in-decision-tree-learning">Issues in Decision Tree Learning</h3>
 
 
 </section>
