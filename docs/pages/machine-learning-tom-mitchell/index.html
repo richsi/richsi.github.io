@@ -185,6 +185,11 @@ window.Quarto = {
   <li><a href="#well-posed-learning-problems" id="toc-well-posed-learning-problems" class="nav-link" data-scroll-target="#well-posed-learning-problems">Well-Posed Learning Problems</a></li>
   <li><a href="#designing-a-learning-system" id="toc-designing-a-learning-system" class="nav-link" data-scroll-target="#designing-a-learning-system">Designing a Learning System</a></li>
   </ul></li>
+  <li><a href="#decision-tree-learning" id="toc-decision-tree-learning" class="nav-link" data-scroll-target="#decision-tree-learning">Decision Tree Learning</a>
+  <ul class="collapse">
+  <li><a href="#appropriate-problems-for-decision-tree-learning" id="toc-appropriate-problems-for-decision-tree-learning" class="nav-link" data-scroll-target="#appropriate-problems-for-decision-tree-learning">Appropriate Problems for Decision Tree Learning</a></li>
+  <li><a href="#the-basic-decision-tree-learning-algorithm" id="toc-the-basic-decision-tree-learning-algorithm" class="nav-link" data-scroll-target="#the-basic-decision-tree-learning-algorithm">The Basic Decision Tree Learning Algorithm</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -271,6 +276,81 @@ E \equiv \sum_{\langle b, V_{train}(b) \rangle \in\ training\ examples} (V_{trai
 </ul>
 </blockquote>
 <p>Here, <span class="math inline">\(\eta\)</span> is a small constant (e.g., 0.1) that moderates the size of the weight update. For a deeper intuitive understanding, notice that when the error <span class="math inline">\((V_{train}(b) - \hat{V}(b))\)</span> is zero, the weights are not changed. However, if the is positive, that means <span class="math inline">\(\hat{V}(b)\)</span> is too small and the weight is increased in proportion to the value of its corresponding feature.</p>
+<hr>
+</section>
+</section>
+<section id="decision-tree-learning" class="level1">
+<h1>Decision Tree Learning</h1>
+<p>Decision tree (DT) learning is one of the most commonly used methods for inductive inference. It is a method for approximating discrete-valued target functions that is robust to noisy data and capable of learning disjunctive expressions.</p>
+<section id="decision-tree-representation" class="level4">
+<h4 class="anchored" data-anchor-id="decision-tree-representation">Decision Tree Representation</h4>
+<p>DTs classify instances by sorting a tree from the root to some leaf node, which provides classification of the instance. Each node in the tree specifies some <em>attribute</em> of the instance. Each path from the tree root to a leaf corresponds to a conjunction of attribute tests</p>
+<hr>
+</section>
+<section id="appropriate-problems-for-decision-tree-learning" class="level3">
+<h3 class="anchored" data-anchor-id="appropriate-problems-for-decision-tree-learning">Appropriate Problems for Decision Tree Learning</h3>
+<p>DT Learning is generally best suited to problems with the following characteristics:</p>
+<ul>
+<li><em>Instances are represented by attribute-value pairs.</em> Instances are described by a fixed set of attributes (e.g., <em>Temperature</em>) and their values (e.g., <em>Hot</em> or <em>72F</em>)</li>
+<li><em>The target function has discrete output values</em></li>
+<li><em>Disjunctive descriptions may be required.</em> DT naturally represent disjunctive expressions</li>
+<li><em>The training data may contain errors.</em> DT learning methods are robust to errors, both errors in classifications of the training examples and errors in the attribute values that describe these examples</li>
+<li><em>The training data may contain missing attribute values.</em> DT methods can be used even when some training examples have unknown values</li>
+</ul>
+<hr>
+</section>
+<section id="the-basic-decision-tree-learning-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="the-basic-decision-tree-learning-algorithm">The Basic Decision Tree Learning Algorithm</h3>
+<p>Most algorithms that have been developed for learning DT trees are variations on a core algorithm that employs a top-down, greedy search through the space of possible DTs. The algorithms we will look at is ID3 (Quinlan 1986).</p>
+<p><strong>How Does ID3 Work?</strong></p>
+<ul>
+<li>Learns DTs by constructing them top-down by evaluating each instance attribute to determine how well it classifies the training examples</li>
+<li>The best attribute is selected and used as the test at the root node of the tree</li>
+<li>A descendant of the root node is then created for each possible value of this attribute, and the training examples are sorted to the appropriate descendant node</li>
+</ul>
+<p>This forms a greedy search for an acceptable DT, in which the algorithm never backtracks to reconsider earlier choices.</p>
+<p><strong>Which Attribute Is the Best Classifier?</strong></p>
+<p>We would like to select the attribute that is most useful for classifying examples. We define a statistical property, called <em>information gain</em>, as a measure for how well a given attribute separates the training examples according to their target classification.</p>
+<p>To precisely define information gain, we use <em>entropy</em>. Entropy chracterizes the (im)purity of an arbitrary collection of examples. Given a collection <span class="math inline">\(S\)</span>, containing positive and negative examples, the entropy of <span class="math inline">\(S\)</span> relative to boolean classification is</p>
+<p><span class="math display">\[
+Entropy(S) \equiv -p_+ log_2 p_+ - p_- log_2 p_-
+\]</span></p>
+<p>where <span class="math inline">\(p_+\)</span> is the proportion of positive examples in <span class="math inline">\(S\)</span> and <span class="math inline">\(p_-\)</span> is the proportion of negative examples in <span class="math inline">\(S\)</span>. We define 0 log 0 to be 0 in all calculations involving entropy. For example,</p>
+<p><span class="math display">\[
+Entropy([9+, 5-]) = -(9/14)log_2 (9/14) - (5/14)log_2 (5/14) = 0.940
+\]</span></p>
+<p>Notice entropy is 0 if all members of <span class="math inline">\(S\)</span> belongs to the same class. Entropy will be 1 when the collection contains an equal number of positive and negative samples.</p>
+<p align="center">
+<img src="images/entropy_figure.png" alt="Entropy Figure" style="max-width: 70%; height:auto;">
+</p>
+<ul>
+<li>Entropy of <span class="math inline">\(S\)</span> relative to <span class="math inline">\(c\)</span> different target attributes is defined as</li>
+</ul>
+<p><span class="math display">\[
+Entropy(S) \equiv \sum_{i=1}^{c} -p_i log_2 p_i
+\]</span></p>
+<ul>
+<li>Information gain measures the expected reduction in entropy. The information gain, <span class="math inline">\(Gain(S, A)\)</span> of an attribute <span class="math inline">\(A\)</span>, relative to a collection of examples <span class="math inline">\(S\)</span>, is defined as</li>
+</ul>
+<p><span class="math display">\[
+Gain(S, A) \equiv Entropy(S) - \sum_{v\in Values(A)} \frac{|S_v|}{|S|} Entropy(S_v)
+\]</span></p>
+<ul>
+<li>For example, suppose <span class="math inline">\(S\)</span> is a collection of days described by the attributes including <span class="math inline">\(Wind\)</span>, which can have the values <span class="math inline">\(Weak\)</span> or <span class="math inline">\(Strong\)</span>. The information gain due to sorting the original 14 examples by the attribute <span class="math inline">\(Wind\)</span> may be calculated as</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned}
+Values(Wind) &amp;= Weak, Strong\\
+S &amp;= [9+, 5-] \\
+S_{Weak} &amp;\leftarrow [6+, 2-]\\
+S_{Strong} &amp;\leftarrow [3+, 3-]\\
+Gain(S, Wind) &amp;= Entropy(S) - \sum_{v\in(Weak, Strong)} \frac{|S_v|}{|S|} Entropy(S_v) \\
+&amp;= Entropy(S) - (8/14)Entropy(S_{Weak})\\
+&amp;\quad- (6/14)Entropy(S_{Strong})\\
+&amp;= 0.940 - (8/14)0.811 - (6/14)1.00\\
+&amp;=0.048
+\end{aligned}
+\]</span></p>
 
 
 </section>
