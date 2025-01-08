@@ -380,6 +380,25 @@ Gain(S, Wind) &amp;= Entropy(S) - \sum_{v\in(Weak, Strong)} \frac{|S_v|}{|S|} En
 </section>
 <section id="issues-in-decision-tree-learning" class="level3">
 <h3 class="anchored" data-anchor-id="issues-in-decision-tree-learning">Issues in Decision Tree Learning</h3>
+<p>Practical issues in learning decision trees include determining how deeply to grow the tree, handling continuous attributes, choosing an appropriate attribute selection measure, handling training data with missing attribute values, handling attributes with differing costs, and improving computational efficiency.</p>
+<p><strong>Avoid Overfitting the Data</strong></p>
+<blockquote class="blockquote">
+<p><strong>Definition:</strong> Given a hypothesis space <span class="math inline">\(H\)</span>, a hypothesis <span class="math inline">\(h\in H\)</span> is said to <strong>overfit</strong> the training data if there exists some alternative hypothesis <span class="math inline">\(h'\in H\)</span>, such that <span class="math inline">\(h\)</span> has smaller error than <span class="math inline">\(h'\)</span> over the training examples, but <span class="math inline">\(h'\)</span> has a smaller error than <span class="math inline">\(h\)</span> over the entire distribution of instances.</p>
+</blockquote>
+<p>One way <em>overfitting</em> can occur is when the training examples contain random errors or noise. However, overfitting is also possible even when the training data are noise-free, especially when small numbers of examples are associated with leaf nodes.</p>
+<p>Approaches to avoid overfitting in decision tree learning can be grouped into two classes:</p>
+<ul>
+<li>approaches that stop growing the tree earlier, before it reaches the point where it perfectly classifies (memorizes) the training data</li>
+<li>approaches that allow the tree to overfit the data, and then post-prune the tree</li>
+</ul>
+<p>Approaches to determine the criterion to be used to determine the correct final tree size:</p>
+<ul>
+<li>Use a separate set of examples, distinct from the training examples, to evaluate the utility of post-pruning nodes from the tree</li>
+<li>Use all the available data for training, but apply a statistical test to estimate whether expanding (or pruning) a particular node is likely to produce an improvement beyond the training set</li>
+<li>Use an explicit measure of the complexity for encoding the training examples and the decision tree, halting growth of the tree when this encoding size is minimized</li>
+</ul>
+<p>The first approach is most commonly referred to as the <em>training and validation set</em> approach. The validation set is expected to provide a safety check against overfitting as it exhibits different fluctuations from the training set.</p>
+<p><em>Reduced-error pruning</em> is an approach that considers each of the decision nodes in the tree to be candidates for pruning. Pruning a decision node consists of removing the subtree rooted at that node, making it a leaf node, and assigning it the most common classification of the training examples affiliated with that node. Nodes are removed only if the resulting pruned tree increases accuracy over the validation set.</p>
 
 
 </section>
