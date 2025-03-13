@@ -1,3 +1,4 @@
 /.quarto/
 template.md
 *.swp
+.venv/

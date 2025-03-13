@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,12 +71,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e8fb9d25728d58bfeac61b497e4a6629.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-57a92833092fd6dc0d7710b6bdfff9c5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-15fa106bca5cd15c786ba48bc3bd94a6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-f219526d42f01ba59e9b63b8d0bc0fb9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-abe3321a76c4696818d6184d7b9917c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-653959e87160c5fd6eccaeccb72ba280.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -216,12 +216,13 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <li><a href="#building-blocks" id="toc-building-blocks" class="nav-link" data-scroll-target="#building-blocks">Building Blocks</a>
   <ul class="collapse">
-  <li><a href="#encoder-decoder-stacks" id="toc-encoder-decoder-stacks" class="nav-link" data-scroll-target="#encoder-decoder-stacks">Encoder Decoder Stacks</a></li>
+  <li><a href="#positional-encoding" id="toc-positional-encoding" class="nav-link" data-scroll-target="#positional-encoding">Positional Encoding</a></li>
   <li><a href="#scaled-dot-product-attention" id="toc-scaled-dot-product-attention" class="nav-link" data-scroll-target="#scaled-dot-product-attention">Scaled Dot-Product Attention</a></li>
   <li><a href="#multi-head-attention" id="toc-multi-head-attention" class="nav-link" data-scroll-target="#multi-head-attention">Multi-Head Attention</a></li>
-  <li><a href="#positional-encoding" id="toc-positional-encoding" class="nav-link" data-scroll-target="#positional-encoding">Positional Encoding</a></li>
+  <li><a href="#encoder" id="toc-encoder" class="nav-link" data-scroll-target="#encoder">Encoder</a></li>
+  <li><a href="#decoder" id="toc-decoder" class="nav-link" data-scroll-target="#decoder">Decoder:</a></li>
   </ul></li>
   <li><a href="#applications-and-insights" id="toc-applications-and-insights" class="nav-link" data-scroll-target="#applications-and-insights">Applications and Insights</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -245,29 +246,20 @@ window.Quarto = {
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<ul>
-<li>What is the topic of this guide, and why is it important?</li>
-</ul>
-<p>The transformer is an attention-based network architecture that learns context and meaning by tracking relationships in sequential data like words in a sentence.</p>
-<ul>
-<li>What problem does this concept or paper aim to solve?</li>
-</ul>
-<p>Sequence modeling and transduction problems such as machine translation have previously been solved by recurrent neural networks (RNNs) and long short-term memory networks (LSTMs). However, due to sequential dependency, the inherent nature of RNNs prevents its training from being parallelized.</p>
-<ul>
-<li>What are the main contributions or breakthroughs introduced?</li>
-</ul>
-<p>Transformers show significant improvements in both computational efficiency as well as model performance.</p>
-<ul>
-<li>How does this fit into the broader context of the field?</li>
-</ul>
-<p>This paper laid the groundwork for state-of-the-art models such as BERT and GPT which has revolutionized the natural language processing (NLP) field. Beyong NLP, transformers have successfully adapted to other machine learning domains like computer vision and reinforcement learning.</p>
+<p>The transformer is an attention-based network architecture that learns context and meaning by tracking relationships in sequential data like words in a sentence. Sequence modeling and transduction problems such as machine translation have previously been solved by recurrent neural networks (RNNs) and long short-term memory networks (LSTMs). However, due to sequential dependency, the inherent nature of RNNs prevents its training from being parallelized. Transformers also solve the vaninishing and exploding gradient problems from RNNs.</p>
 </section>
-<section id="methods" class="level2">
-<h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<section id="encoder-decoder-stacks" class="level3">
-<h3 class="anchored" data-anchor-id="encoder-decoder-stacks">Encoder Decoder Stacks</h3>
-<p><strong>Encoder:</strong></p>
-<p><strong>Decoder:</strong></p>
+<section id="building-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="building-blocks">Building Blocks</h2>
+<section id="positional-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="positional-encoding">Positional Encoding</h3>
+<p>Positional encoding, also known as Sinusoidal Positional Encoding, is added to both input and output embeddings. Positional encodings also remain constant, so they only need to be compute once, whether it is for training or inference. Below is the formula:</p>
+<p><span class="math display">\[
+\begin{aligned}
+PE_{(pos, 2i)} = \sin(pos / 10000^{2i/d_{model}}) \\
+PE_{(pos, 2i+1)} = \cos(pos / 10000^{2i/d_{model}})
+\end{aligned}
+\]</span></p>
+<p>The shape of the position encoding will match the shape of the input embeddings. <span class="math inline">\(pos\)</span> represents the position of the token in the sequence, <span class="math inline">\(i\)</span> represents the current dimension index, and <span class="math inline">\(d_model\)</span> represents the total number of dimensions in the vector embedding.</p>
 </section>
 <section id="scaled-dot-product-attention" class="level3">
 <h3 class="anchored" data-anchor-id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
@@ -289,33 +281,33 @@ V = XW^V\\
 <li><p><span class="math inline">\(\bf{V}\)</span> represents the information associated with each token. It is the actual data that gets weighted and aggregated based on attention scores.</p></li>
 </ul>
 <p>The dimensions of <span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span>, and <span class="math inline">\(V\)</span> are determined by the model’s <strong>latent space dimensionality</strong> (<span class="math inline">\(d_{model}\)</span>) and the number of <strong>attention heads</strong> (<span class="math inline">\(h\)</span>). In this example, we initialize the latent space dimension to be <strong>512</strong> and the number of attention heads to be <strong>8</strong>.</p>
-<div id="cell-12" class="cell" data-execution_count="1">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scaled_dot_product_attention(Q, K, V):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">""" </span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Compute scaled dot-product attention</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters:</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Q, K, V: Query, Key, and Value matrices (numpy arrays).</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">      Shapes: (N, d_k) for Q and K, (N, d_v) for V.</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  output: Weighted sum of values after applying attention, shape (N, d_v)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  attention_weights: shape (N, N)</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  d_k <span class="op">=</span> Q.shape[<span class="dv">1</span>] <span class="co"># Dimensionality of keys/queries</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  scores <span class="op">=</span> np.dot(Q, K.T) <span class="op">/</span> np.sqrt(d_k) <span class="co"># Shape: (N,d_v) @ (d_v,N) -&gt; (N, N)</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  attention_weights <span class="op">=</span> np.exp(scores) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(scores), axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># axis=1 for column wise addition</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  output <span class="op">=</span> np.dot(attention_weights, V) <span class="co"># Shape: (N,N) @ (N,d_v) -&gt; (N,d_v)</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> output, attention_weights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Args:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">  Q, K, V: Query, Key, and Value matrices (numpy arrays).</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">      Shapes: (N, d_k) for Q and K, (N, d_v) for V.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">  output: Weighted sum of values after applying attention, shape (N, d_v)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  attention_weights: shape (N, N)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  d_k <span class="op">=</span> Q.shape[<span class="dv">1</span>] <span class="co"># Dimensionality of keys/queries</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  scores <span class="op">=</span> np.dot(Q, K.T) <span class="op">/</span> np.sqrt(d_k) <span class="co"># Shape: (N,d_v) @ (d_v,N) -&gt; (N, N)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  attention_weights <span class="op">=</span> np.exp(scores) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(scores), axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># softmax equation</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  output <span class="op">=</span> np.dot(attention_weights, V) <span class="co"># Shape: (N,N) @ (N,d_v) -&gt; (N,d_v)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> output, attention_weights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> In the encoder and decoder’s self-attention layers, the input is passed to all three parameters <span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span>, and <span class="math inline">\(V\)</span>. In the decoder’s encoder-decoder attention layer, the output of the final encoder in the stack is passed to the <span class="math inline">\(K\)</span> and <span class="math inline">\(V\)</span> parameters. The output of the previous decoder self-attention layer is passed to the <span class="math inline">\(Q\)</span> parameter.</p>
+</blockquote>
 </section>
 <section id="multi-head-attention" class="level3">
 <h3 class="anchored" data-anchor-id="multi-head-attention">Multi-Head Attention</h3>
 <p><span class="math display">\[
 \text{MultiHead}(Q, K, V) = \text{Concat}(\text{Attention}_1, \text{Attention}_2, ..., \text{Attention}_h)W^O
 \]</span></p>
-<p>Multi-head attention scales the concept of scaled dot-product attention by running multiple attention heads in parallel. Each haed operates in a different subspace which optimizes feature learning. For example, one head might focus on syntax while another head focuses on semantics.</p>
+<p>Multi-head attention scales the concept of scaled dot-product attention by running multiple attention heads in parallel. Each head operates in a different subspace which optimizes feature learning. For example, one head might focus on syntax while another head focuses on semantics.</p>
 <p><strong>Steps:</strong></p>
 <ol type="1">
 <li><p><strong>Linear Projections</strong>: Split <span class="math inline">\(Q, K, V\)</span> into <span class="math inline">\(h\)</span> subspaces, one for each head.</p></li>
@@ -323,52 +315,13 @@ V = XW^V\\
 <li><p><strong>Concatenation</strong>: Combine the outputs of all heads into a single matrix.</p></li>
 <li><p><strong>Final Linear Transformation</strong>: Project the concatenated matrix back to <span class="math inline">\(d_{model}\)</span> using <span class="math inline">\(W^O\)</span>.</p></li>
 </ol>
-<div id="cell-16" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multi_head_attention(Q, K, V, num_heads, d_model):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Computes multi-head attention.</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters:</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">  Q, K, V: Query, Key, and Value matrices (numpy arrays).</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">      Shapes: (N, d_k) for Q and K, (N, d_v) for V. </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">  num_heads: Number of attention heads.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">  d_model: Dimensionality of the model.</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">  output: Multi-head attention output. Shape: (N, d_model)</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  d_k <span class="op">=</span> d_model <span class="op">//</span> num_heads</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  d_v <span class="op">=</span> d_k <span class="co"># same as d_k</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Initializing weights</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  W_Q <span class="op">=</span> np.random.rand(num_heads, d_model, d_k)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  W_K <span class="op">=</span> np.random.rand(num_heads, d_model, d_k)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  W_V <span class="op">=</span> np.random.rand(num_heads, d_model, d_v)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  W_O <span class="op">=</span> np.random.rand(num_heads <span class="op">*</span> d_v, d_model)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split heads and compute attention</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  attention_heads <span class="op">=</span> []</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_heads):</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    Q_i <span class="op">=</span> np.dot(Q, W_Q[i]) <span class="co"># Shape: (N, d_k)</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    K_i <span class="op">=</span> np.dot(Q, W_K[i]) <span class="co"># Shape: (N, d_k)</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    V_i <span class="op">=</span> np.dot(Q, W_V[i]) <span class="co"># Shape: (N, d_v)</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    head_output, _ <span class="op">=</span> scaled_dot_product_attention(Q_i, K_i, V_i)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    attention_heads.append(head_output)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  concatenated <span class="op">=</span> np.concatenate(attention_heads, axis<span class="op">=-</span><span class="dv">1</span>) <span class="co"># Shape: (N, num_heads * d_v)</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  output <span class="op">=</span> np.dot(concatenated, W_O) <span class="co"># Shape: (N, d_model)</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="positional-encoding" class="level3">
-<h3 class="anchored" data-anchor-id="positional-encoding">Positional Encoding</h3>
-<p><span class="math display">\[
-\begin{aligned}
-PE_{(pos, 2i)} = \sin(pos / 10000^{2i/d_{model}}) \\
-PE_{(pos, 2i+1)} = \cos(pos / 10000^{2i/d_{model}})
-\end{aligned}
-\]</span></p>
+<section id="encoder" class="level3">
+<h3 class="anchored" data-anchor-id="encoder">Encoder</h3>
+<p>The encoder stack consists of layers of encoders. Each encoder consists of a self-attention layer, two layer normalization layers, and a feed-forward layer. There is also residual connections that encapsulate the self-attention and feed-forward layers.</p>
+</section>
+<section id="decoder" class="level3">
+<h3 class="anchored" data-anchor-id="decoder">Decoder:</h3>
 </section>
 </section>
 <section id="applications-and-insights" class="level2">
