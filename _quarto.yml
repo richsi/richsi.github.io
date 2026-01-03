@@ -8,15 +8,18 @@ website:
     right:
       - href: about.qmd
         text: "About"
+      - icon: linkedin
+        href: https://www.linkedin.com/in/richhsi/
       - icon: github
         href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+      - icon: envelope
+        href: "mailto:rzhsieh@gmail.com"
 format:
   html:
     theme:
       - cosmo
       - brand
+    title-block-style: default
     css: styles.css
 
 

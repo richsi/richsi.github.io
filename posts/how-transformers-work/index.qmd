@@ -1,12 +1,25 @@
 ---
 title: "How Transformers Work"
 date: "2026-01-02"
+categories: "paper"
 ---
 
-## The Big Idea
-Short paragraph here...
+::: {.callout-note appearance="simple"}
+**Paper:** [Attention Is All You Need](https://arxiv.org/abs/1706.03762)  
+:::
 
-## How it Works
+## TLDR
+The transformer architecture was designed to address to limitations of Recurrent Neural Networks (RNNs) and Convolutional Neural Networks (CNNs) in sequence modeling by introducing self-attention mechanisms. In prior work, the sequential nature of RNNs restrict parallelization and inhibit capturing dependencies between distant tokens. Transformers solve this issue by using attention mechanisms. 
+
+> In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs.
+
+## Why RNNs Were Problematic
+
+## What is Attention
+
+## Why This Works
+
+## Takeaways
 
 ::: {.panel-tabset}
 ### The Math

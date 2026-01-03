@@ -13,7 +13,7 @@ about:
 
 ---
 
-Richard Hsieh is a software engineer on the architecture and performance modeling team at Eridu AI. In his off-time, Richard enjoys tennis, pickleball, and video games with friends.
+Richard Hsieh is a software engineer on the architecture and performance modeling team at Eridu AI. In his off-time, Richard enjoys tennis, pickleball, and learning new things.
 
 ## Education
 
@@ -25,7 +25,7 @@ Richard Hsieh is a software engineer on the architecture and performance modelin
 
 ## Experience
 
-**Eridu AI** | Software Engineer | June 2024 -- Present
+**Eridu AI** | Software Engineer | May 2024 -- Present
 
 **Aperia Technologies** | Data Engineer Intern | October 2023 -- May 2024
 

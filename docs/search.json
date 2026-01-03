@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "Richard Hsieh",
     "section": "",
-    "text": "Richard Hsieh is a software engineer on the architecture and performance modeling team at Eridu AI. In his off-time, Richard enjoys tennis, pickleball, and video games with friends."
+    "text": "Richard Hsieh is a software engineer on the architecture and performance modeling team at Eridu AI. In his off-time, Richard enjoys tennis, pickleball, and learning new things."
   },
   {
     "objectID": "about.html#education",
@@ -18,7 +18,7 @@
     "href": "about.html#experience",
     "title": "Richard Hsieh",
     "section": "Experience",
-    "text": "Experience\nEridu AI | Software Engineer | June 2024 – Present\nAperia Technologies | Data Engineer Intern | October 2023 – May 2024\nMojoVision | Software Engineer Intern | June 2022 – September 2022"
+    "text": "Experience\nEridu AI | Software Engineer | May 2024 – Present\nAperia Technologies | Data Engineer Intern | October 2023 – May 2024\nMojoVision | Software Engineer Intern | June 2022 – September 2022"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -32,7 +32,7 @@
     "href": "posts/how-transformers-work/index.html",
     "title": "How Transformers Work",
     "section": "",
-    "text": "Short paragraph here…"
+    "text": "Paper: Attention Is All You Need"
   },
   {
     "objectID": "posts/how-transformers-work/index.html#the-big-idea",
@@ -53,6 +53,69 @@
     "href": "index.html",
     "title": "Richard’s Blogs",
     "section": "",
-    "text": "Date\n\n\nTitle\n\n\n\n\n\n\nJan 2, 2026\n\n\nHow Transformers Work\n\n\n\n\nDec 30, 2025\n\n\nWelcome To My Blog\n\n\n\n\n\nNo matching items"
+    "text": "Date\n\n\nTitle\n\n\nCategories\n\n\n\n\n\n\nJan 2, 2026\n\n\nHow Transformers Work\n\n\npaper\n\n\n\n\nDec 30, 2025\n\n\nWelcome To My Blog\n\n\nnews\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#tldr",
+    "href": "posts/how-transformers-work/index.html#tldr",
+    "title": "How Transformers Work",
+    "section": "TLDR",
+    "text": "TLDR\nThe transformer architecture was designed to address to limitations of Recurrent Neural Networks (RNNs) and Convolutional Neural Networks (CNNs) in sequence modeling by introducing self-attention mechanisms. In prior work, the sequential nature of RNNs restrict parallelization and inhibit capturing dependencies between distant tokens. Transformers solve this issue by using attention mechanisms.\n\nIn this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs."
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#why-rnns-were-holding-us-back",
+    "href": "posts/how-transformers-work/index.html#why-rnns-were-holding-us-back",
+    "title": "How Transformers Work",
+    "section": "Why RNNs Were Holding Us Back",
+    "text": "Why RNNs Were Holding Us Back\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#why-rnns-were-problematic",
+    "href": "posts/how-transformers-work/index.html#why-rnns-were-problematic",
+    "title": "How Transformers Work",
+    "section": "Why RNNs Were Problematic",
+    "text": "Why RNNs Were Problematic"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#why-rnns-were-problematic-1",
+    "href": "posts/how-transformers-work/index.html#why-rnns-were-problematic-1",
+    "title": "How Transformers Work",
+    "section": "Why RNNs Were Problematic",
+    "text": "Why RNNs Were Problematic\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#high-level-architecture-overview",
+    "href": "posts/how-transformers-work/index.html#high-level-architecture-overview",
+    "title": "How Transformers Work",
+    "section": "High Level Architecture Overview",
+    "text": "High Level Architecture Overview"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#self-attention",
+    "href": "posts/how-transformers-work/index.html#self-attention",
+    "title": "How Transformers Work",
+    "section": "Self-Attention",
+    "text": "Self-Attention"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#why-this-works",
+    "href": "posts/how-transformers-work/index.html#why-this-works",
+    "title": "How Transformers Work",
+    "section": "Why This Works",
+    "text": "Why This Works"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#takeaways",
+    "href": "posts/how-transformers-work/index.html#takeaways",
+    "title": "How Transformers Work",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#what-is-attention",
+    "href": "posts/how-transformers-work/index.html#what-is-attention",
+    "title": "How Transformers Work",
+    "section": "What is Attention",
+    "text": "What is Attention"
   }
 ]
