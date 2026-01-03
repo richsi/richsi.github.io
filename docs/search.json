@@ -2,15 +2,57 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Richard Hsieh",
     "section": "",
-    "text": "Hi I’m Richard"
+    "text": "Richard Hsieh is a software engineer on the architecture and performance modeling team at Eridu AI. In his off-time, Richard enjoys tennis, pickleball, and video games with friends."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Richard Hsieh",
+    "section": "Education",
+    "text": "Education\nGeorgia Institute of Technology | Atlanta, GA\nM.S. in Computer Science | August 2024 – May 2026\nUniversity of California, Santa Cruz | Santa Cruz, CA\nB.S. in Computer Engineering | September 2020 – June 2024"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Richard Hsieh",
+    "section": "Experience",
+    "text": "Experience\nEridu AI | Software Engineer | June 2024 – Present\nAperia Technologies | Data Engineer Intern | October 2023 – May 2024\nMojoVision | Software Engineer Intern | June 2022 – September 2022"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html",
+    "href": "posts/how-transformers-work/index.html",
+    "title": "How Transformers Work",
+    "section": "",
+    "text": "Short paragraph here…"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#the-big-idea",
+    "href": "posts/how-transformers-work/index.html#the-big-idea",
+    "title": "How Transformers Work",
+    "section": "",
+    "text": "Short paragraph here…"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#how-it-works",
+    "href": "posts/how-transformers-work/index.html#how-it-works",
+    "title": "How Transformers Work",
+    "section": "How it Works",
+    "text": "How it Works\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Richard’s Page",
+    "title": "Richard’s Blogs",
     "section": "",
-    "text": "Date\n\n\nTitle\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Date\n\n\nTitle\n\n\n\n\n\n\nJan 2, 2026\n\n\nHow Transformers Work\n\n\n\n\nDec 30, 2025\n\n\nWelcome To My Blog\n\n\n\n\n\nNo matching items"
   }
 ]

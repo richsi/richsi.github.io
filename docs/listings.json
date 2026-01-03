@@ -1,6 +1,9 @@
 [
   {
     "listing": "/index.html",
-    "items": []
+    "items": [
+      "/posts/how-transformers-work/index.html",
+      "/posts/welcome/index.html"
+    ]
   }
 ]
