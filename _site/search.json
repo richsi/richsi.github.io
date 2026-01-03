@@ -28,6 +28,27 @@
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
+    "objectID": "posts/how-transformers-work/index.html",
+    "href": "posts/how-transformers-work/index.html",
+    "title": "How Transformers Work",
+    "section": "",
+    "text": "Short paragraph here…"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#the-big-idea",
+    "href": "posts/how-transformers-work/index.html#the-big-idea",
+    "title": "How Transformers Work",
+    "section": "",
+    "text": "Short paragraph here…"
+  },
+  {
+    "objectID": "posts/how-transformers-work/index.html#how-it-works",
+    "href": "posts/how-transformers-work/index.html#how-it-works",
+    "title": "How Transformers Work",
+    "section": "How it Works",
+    "text": "How it Works\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Richard’s Blogs",

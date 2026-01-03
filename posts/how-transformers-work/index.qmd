@@ -3,3 +3,17 @@ title: "How Transformers Work"
 date: "2026-01-02"
 ---
 
+## The Big Idea
+Short paragraph here...
+
+## How it Works
+
+::: {.panel-tabset}
+### The Math
+$$L = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+
+### The Code
+```python
+def loss_function(y, y_hat):
+    return ((y - y_hat)**2).sum()
+```
