@@ -2,8 +2,11 @@
 title: "Richard's Blogs"
 listing:
   contents: posts
-  sort: "date desc"
-  type: default
+  fields: [date, title]
+  sort: 
+    - "date desc"
+    - "title desc"
+  type: table
   categories: false
   sort-ui: false
   filter-ui: false
