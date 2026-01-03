@@ -1,20 +1,22 @@
 project:
   type: website
-  output-dir: docs
 
 website:
   title: "richsi.github.io"
   navbar:
     right:
+      - href: about.qmd
+        text: "About"
       - icon: github
-        href: https://github.com/richsi
-      - icon: linkedin
-        href: https://www.linkedin.com/in/richhsi/
-
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
 format:
   html:
-    theme: 
-      dark: darkly
-      light: flatly
+    theme:
+      - cosmo
+      - brand
     css: styles.css
-    highlight-style: atom-one
+
+
+

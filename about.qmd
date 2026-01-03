@@ -1,5 +1,32 @@
 ---
-title: "About"
+title: "Richard Hsieh"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com
+    - icon: github
+      text: Github
+      href: https://github.com
+
 ---
 
-Hi I'm Richard
+Richard Hsieh is a software engineer on the architecture and performance modeling team at Eridu AI. In his off-time, Richard enjoys tennis, pickleball, and video games with friends.
+
+## Education
+
+**Georgia Institute of Technology** | Atlanta, GA\
+*M.S. in Computer Science* | August 2024 -- May 2026
+
+**University of California, Santa Cruz** | Santa Cruz, CA\
+*B.S. in Computer Engineering* | September 2020 -- June 2024
+
+## Experience
+
+**Eridu AI** | Software Engineer | June 2024 -- Present
+
+**Aperia Technologies** | Data Engineer Intern | October 2023 -- May 2024
+
+**MojoVision** | Software Engineer Intern | June 2022 -- September 2022

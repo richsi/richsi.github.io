@@ -2,3 +2,4 @@
 template.md
 *.swp
 .venv/
+.vscode
