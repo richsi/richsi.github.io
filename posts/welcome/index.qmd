@@ -1,6 +1,6 @@
 ---
 title: "Welcome To My Blog"
-author: "Tristan O'Malley"
+author: "Richard Hsieh"
 date: "2025-12-30"
 categories: [news]
 ---
