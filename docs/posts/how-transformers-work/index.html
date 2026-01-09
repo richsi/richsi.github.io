@@ -232,11 +232,19 @@ window.Quarto = {
 <p>In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs.</p>
 </blockquote>
 </section>
-<section id="why-rnns-were-problematic" class="level2">
-<h2 class="anchored" data-anchor-id="why-rnns-were-problematic">Why RNNs Were Problematic</h2>
+<section id="why-rnns-are-problematic" class="level2">
+<h2 class="anchored" data-anchor-id="why-rnns-are-problematic">Why RNNs Are Problematic</h2>
+<p>The main computational bottleneck with RNNs are the sequantial nature of the hidden states. The conditional probability of token <span class="math inline">\(x_t\)</span> at time step <span class="math inline">\(t\)</span> depends on the previous <span class="math inline">\(t - 1\)</span> tokens. As a result, it is impossible to calculate all hidden states simultaneously. For the same reason, RNNs suffer from the exploding / vanishing gradient problem during backpropagation, making it computationally expensive and time-consuming to train RNNs.</p>
+<p>Imagine you are reading the sentence: “<em>The animal didn’t cross the street because it was too tired.</em>” In order to understand what “it” refers to, the RNN would have to pass information through many steps to remember “animal”. A transformer uses attention mechanisms to create a weighted link between “it” and “animal”.</p>
 </section>
 <section id="what-is-attention" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-attention">What is Attention</h2>
+<blockquote class="blockquote">
+<p>Self-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. Self-attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task-independent sentence representations.</p>
+</blockquote>
+</section>
+<section id="architecture-overview" class="level2">
+<h2 class="anchored" data-anchor-id="architecture-overview">Architecture Overview</h2>
 </section>
 <section id="why-this-works" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-works">Why This Works</h2>

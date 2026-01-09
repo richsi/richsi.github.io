@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/learning-cuda/index.html",
       "/posts/how-transformers-work/index.html",
       "/posts/welcome/index.html"
     ]

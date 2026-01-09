@@ -1,0 +1,110 @@
+---
+title: "Learning CUDA"
+date: "2026-01-08"
+categories: "practice"
+---
+
+## Setup
+
+**Hardware**:
+
+- CPU: AMD Ryzen 9950X3D
+- GPU: NVIDIA RTX 5090 FE
+	- 32GB VRAM
+	- 1792 GB/s theoretical bandwidth
+	- How many FLOPs
+	- Bandwidth?
+	- Roofline?
+
+**Environment**:
+
+- WSL2 - Ubuntu 24.04.3 LTS\
+- CUDA Version 13.1\
+- nvcc version 13.1\
+
+## Fundamentals
+
+### How to allocate memory in host and device
+```C
+// Host (CPU) memory
+float *h_A = (float *)malloc(size);
+
+// Device (GPU) memory
+float *d_A = NULL;
+cudaMalloc((void **)&d_A, size);
+```
+- `cudaMalloc` allocates in the GPU's global memory (HBM - high bandwidth memory)
+- This memory is accessible by all GPU threads, but has higher latency than shared memory or registers.
+
+### How to transfer data between host and device
+```C
+cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
+cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
+```
+- `cudaMemcpy` is synchronous, meaning the CPU waits until the transfer completes before continuing
+- `cudaMemcpyHostToDevice` specifies to direction of where the data moves
+- Memory transfers are slow - you generally want to minimize the number of transfers
+
+### How to clean up allocated memory
+```C
+free(h_A);     // Free CPU memory
+cudaFree(d_A); // Free GPU memory
+```
+- Forgetting to free memory causes memory leaks
+
+### How to measure performance
+```C
+cudaEvent_t start, stop;
+cudaEventCreate(&start);
+cudaEventCreate(&stop);
+
+cudaEventRecord(start);
+executeKernel<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C,  num_Elements);
+
+cudaEventRecord(stop);
+cudaEventSynchronize(stop);
+
+float milliseconds = 0;
+cudaEventElapsedTime(&milliseconds, start, stop);
+
+cudaEventDestroy(start);
+cudaEventDestroy(stop);
+```
+
+## Vector Addition
+
+The goal of this exercise is to build and run a simple vector addition kernel using CUDA.\
+1. Allocate memory on both CPU (host) and GPU (device)\
+2. Copy input data from CPU to GPU\
+3. Launch vector addition kernel to run on the GPU\
+4. Copy results back from GPU to CPU\
+5. Clean up allocated memory\
+
+Here is the vector addition kernel:
+```C
+__global__ void vectorAdd(const float *A, const float *B, float *C, int numElements) {
+	int i = blockDim.x * blockIdx.x + threadIdx.x;
+	
+	if (i < numElements) {
+		C[i] = A[i] + B[i];
+	}
+}
+```
+
+**Thread Indexing**:
+- Thread index is calculated by `blockDim.x * blockIdx.x + threadIdx.x`
+	- This formula computes a unique global index for each thread
+- For example, processing 50,000 elements using blocks of 256 threads each would require 196 blocks (rounded up)
+	- Thread 0 in Block 0: index = 256 * 0 + 0 = 0
+	- Thread 10 in Block 0: index = 256 * 0 + 10 = 10
+	- Thread 0 in Block 1: index = 256 * 1 + 0 = 256
+	- Thread 100 in Block 2: index = 256 * 2 + 100 = 612
+- Boundary checks are crucial to ensure you access valid memory
+
+**Memory Bandwidth Analysis**:
+Vector addition performs two reads and one write.
+- Two float arrays to read from: 50,000 * 4 bytes * 2 = 400 KB
+- One float array to write to: 50,000 * 4 bytes
+- Total memory traffic: 600 KB
+
+If your kernel runs in 0.1 ms, the bandwidth is 600 KB / 0.0001 s = 6 GB/s. Note that the RTX 5090 has about 1792 GB/s theoretical bandwidth.

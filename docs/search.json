@@ -35,27 +35,6 @@
     "text": "Paper: Attention Is All You Need"
   },
   {
-    "objectID": "posts/how-transformers-work/index.html#the-big-idea",
-    "href": "posts/how-transformers-work/index.html#the-big-idea",
-    "title": "How Transformers Work",
-    "section": "",
-    "text": "Short paragraph here…"
-  },
-  {
-    "objectID": "posts/how-transformers-work/index.html#how-it-works",
-    "href": "posts/how-transformers-work/index.html#how-it-works",
-    "title": "How Transformers Work",
-    "section": "How it Works",
-    "text": "How it Works\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Richard’s Blogs",
-    "section": "",
-    "text": "Date\n\n\nTitle\n\n\nCategories\n\n\n\n\n\n\nJan 2, 2026\n\n\nHow Transformers Work\n\n\npaper\n\n\n\n\nDec 30, 2025\n\n\nWelcome To My Blog\n\n\nnews\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "posts/how-transformers-work/index.html#tldr",
     "href": "posts/how-transformers-work/index.html#tldr",
     "title": "How Transformers Work",
@@ -63,39 +42,25 @@
     "text": "TLDR\nThe transformer architecture was designed to address to limitations of Recurrent Neural Networks (RNNs) and Convolutional Neural Networks (CNNs) in sequence modeling by introducing self-attention mechanisms. In prior work, the sequential nature of RNNs restrict parallelization and inhibit capturing dependencies between distant tokens. Transformers solve this issue by using attention mechanisms.\n\nIn this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs."
   },
   {
-    "objectID": "posts/how-transformers-work/index.html#why-rnns-were-holding-us-back",
-    "href": "posts/how-transformers-work/index.html#why-rnns-were-holding-us-back",
+    "objectID": "posts/how-transformers-work/index.html#why-rnns-are-problematic",
+    "href": "posts/how-transformers-work/index.html#why-rnns-are-problematic",
     "title": "How Transformers Work",
-    "section": "Why RNNs Were Holding Us Back",
-    "text": "Why RNNs Were Holding Us Back\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
+    "section": "Why RNNs Are Problematic",
+    "text": "Why RNNs Are Problematic\nThe main computational bottleneck with RNNs are the sequantial nature of the hidden states. The conditional probability of token \\(x_t\\) at time step \\(t\\) depends on the previous \\(t - 1\\) tokens. As a result, it is impossible to calculate all hidden states simultaneously. For the same reason, RNNs suffer from the exploding / vanishing gradient problem during backpropagation, making it computationally expensive and time-consuming to train RNNs.\nImagine you are reading the sentence: “The animal didn’t cross the street because it was too tired.” In order to understand what “it” refers to, the RNN would have to pass information through many steps to remember “animal”. A transformer uses attention mechanisms to create a weighted link between “it” and “animal”."
   },
   {
-    "objectID": "posts/how-transformers-work/index.html#why-rnns-were-problematic",
-    "href": "posts/how-transformers-work/index.html#why-rnns-were-problematic",
+    "objectID": "posts/how-transformers-work/index.html#what-is-attention",
+    "href": "posts/how-transformers-work/index.html#what-is-attention",
     "title": "How Transformers Work",
-    "section": "Why RNNs Were Problematic",
-    "text": "Why RNNs Were Problematic"
+    "section": "What is Attention",
+    "text": "What is Attention\n\nSelf-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. Self-attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task-independent sentence representations."
   },
   {
-    "objectID": "posts/how-transformers-work/index.html#why-rnns-were-problematic-1",
-    "href": "posts/how-transformers-work/index.html#why-rnns-were-problematic-1",
+    "objectID": "posts/how-transformers-work/index.html#architecture-overview",
+    "href": "posts/how-transformers-work/index.html#architecture-overview",
     "title": "How Transformers Work",
-    "section": "Why RNNs Were Problematic",
-    "text": "Why RNNs Were Problematic\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
-  },
-  {
-    "objectID": "posts/how-transformers-work/index.html#high-level-architecture-overview",
-    "href": "posts/how-transformers-work/index.html#high-level-architecture-overview",
-    "title": "How Transformers Work",
-    "section": "High Level Architecture Overview",
-    "text": "High Level Architecture Overview"
-  },
-  {
-    "objectID": "posts/how-transformers-work/index.html#self-attention",
-    "href": "posts/how-transformers-work/index.html#self-attention",
-    "title": "How Transformers Work",
-    "section": "Self-Attention",
-    "text": "Self-Attention"
+    "section": "Architecture Overview",
+    "text": "Architecture Overview"
   },
   {
     "objectID": "posts/how-transformers-work/index.html#why-this-works",
@@ -112,10 +77,38 @@
     "text": "Takeaways\n\nThe MathThe Code\n\n\n\\[L = \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\]\n\n\ndef loss_function(y, y_hat):\n    return ((y - y_hat)**2).sum()"
   },
   {
-    "objectID": "posts/how-transformers-work/index.html#what-is-attention",
-    "href": "posts/how-transformers-work/index.html#what-is-attention",
-    "title": "How Transformers Work",
-    "section": "What is Attention",
-    "text": "What is Attention"
+    "objectID": "posts/learning-cuda/index.html",
+    "href": "posts/learning-cuda/index.html",
+    "title": "Learning CUDA",
+    "section": "",
+    "text": "Hardware:\n\nCPU: AMD Ryzen 9950X3D\nGPU: NVIDIA RTX 5090 FE\n\n32GB VRAM\n1792 GB/s theoretical bandwidth\nHow many FLOPs\nBandwidth?\nRoofline?\n\n\nEnvironment:\n\nWSL2 - Ubuntu 24.04.3 LTS\n\nCUDA Version 13.1\n\nnvcc version 13.1"
+  },
+  {
+    "objectID": "posts/learning-cuda/index.html#setup",
+    "href": "posts/learning-cuda/index.html#setup",
+    "title": "Learning CUDA",
+    "section": "",
+    "text": "Hardware:\n\nCPU: AMD Ryzen 9950X3D\nGPU: NVIDIA RTX 5090 FE\n\n32GB VRAM\n1792 GB/s theoretical bandwidth\nHow many FLOPs\nBandwidth?\nRoofline?\n\n\nEnvironment:\n\nWSL2 - Ubuntu 24.04.3 LTS\n\nCUDA Version 13.1\n\nnvcc version 13.1"
+  },
+  {
+    "objectID": "posts/learning-cuda/index.html#fundamentals",
+    "href": "posts/learning-cuda/index.html#fundamentals",
+    "title": "Learning CUDA",
+    "section": "Fundamentals",
+    "text": "Fundamentals\n\nHow to allocate memory in host and device\n// Host (CPU) memory\nfloat *h_A = (float *)malloc(size);\n\n// Device (GPU) memory\nfloat *d_A = NULL;\ncudaMalloc((void **)&d_A, size);\n\ncudaMalloc allocates in the GPU’s global memory (HBM - high bandwidth memory)\nThis memory is accessible by all GPU threads, but has higher latency than shared memory or registers.\n\n\n\nHow to transfer data between host and device\ncudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);\ncudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);\n\ncudaMemcpy is synchronous, meaning the CPU waits until the transfer completes before continuing\ncudaMemcpyHostToDevice specifies to direction of where the data moves\nMemory transfers are slow - you generally want to minimize the number of transfers\n\n\n\nHow to clean up allocated memory\nfree(h_A);     // Free CPU memory\ncudaFree(d_A); // Free GPU memory\n\nForgetting to free memory causes memory leaks\n\n\n\nHow to measure performance\ncudaEvent_t start, stop;\ncudaEventCreate(&start);\ncudaEventCreate(&stop);\n\ncudaEventRecord(start);\nexecuteKernel&lt;&lt;&lt;blocksPerGrid, threadsPerBlock&gt;&gt;&gt;(d_A, d_B, d_C,  num_Elements);\n\ncudaEventRecord(stop);\ncudaEventSynchronize(stop);\n\nfloat milliseconds = 0;\ncudaEventElapsedTime(&milliseconds, start, stop);\n\ncudaEventDestroy(start);\ncudaEventDestroy(stop);"
+  },
+  {
+    "objectID": "posts/learning-cuda/index.html#vector-addition",
+    "href": "posts/learning-cuda/index.html#vector-addition",
+    "title": "Learning CUDA",
+    "section": "Vector Addition",
+    "text": "Vector Addition\nThe goal of this exercise is to build and run a simple vector addition kernel using CUDA.\n1. Allocate memory on both CPU (host) and GPU (device)\n2. Copy input data from CPU to GPU\n3. Launch vector addition kernel to run on the GPU\n4. Copy results back from GPU to CPU\n5. Clean up allocated memory\n\nHere is the vector addition kernel:\n__global__ void vectorAdd(const float *A, const float *B, float *C, int numElements) {\n    int i = blockDim.x * blockIdx.x + threadIdx.x;\n    \n    if (i &lt; numElements) {\n        C[i] = A[i] + B[i];\n    }\n}\nThread Indexing: - Thread index is calculated by blockDim.x * blockIdx.x + threadIdx.x - This formula computes a unique global index for each thread - For example, processing 50,000 elements using blocks of 256 threads each would require 196 blocks (rounded up) - Thread 0 in Block 0: index = 256 * 0 + 0 = 0 - Thread 10 in Block 0: index = 256 * 0 + 10 = 10 - Thread 0 in Block 1: index = 256 * 1 + 0 = 256 - Thread 100 in Block 2: index = 256 * 2 + 100 = 612 - Boundary checks are crucial to ensure you access valid memory\nMemory Bandwidth Analysis: Vector addition performs two reads and one write. - Two float arrays to read from: 50,000 * 4 bytes * 2 = 400 KB - One float array to write to: 50,000 * 4 bytes - Total memory traffic: 600 KB\nIf your kernel runs in 0.1 ms, the bandwidth is 600 KB / 0.0001 s = 6 GB/s. Note that the RTX 5090 has about 1792 GB/s theoretical bandwidth."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Richard’s Blogs",
+    "section": "",
+    "text": "Date\n\n\nTitle\n\n\nCategories\n\n\n\n\n\n\nJan 8, 2026\n\n\nLearning CUDA\n\n\npractice\n\n\n\n\nJan 2, 2026\n\n\nHow Transformers Work\n\n\npaper\n\n\n\n\nDec 30, 2025\n\n\nWelcome To My Blog\n\n\nnews\n\n\n\n\n\nNo matching items"
   }
 ]

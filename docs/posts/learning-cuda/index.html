@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tristan O’Malley">
-<meta name="dcterms.date" content="2025-12-30">
+<meta name="dcterms.date" content="2026-01-08">
 
-<title>Welcome To My Blog – richsi.github.io</title>
+<title>Learning CUDA – richsi.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -120,9 +153,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Welcome To My Blog</h1>
+      <h1 class="title">Learning CUDA</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
+                <div class="quarto-category">practice</div>
               </div>
                   </div>
   </div>
@@ -130,17 +163,11 @@ ul.task-list li input[type="checkbox"] {
   
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Tristan O’Malley </p>
-            </div>
-    </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 30, 2025</p>
+        <p class="date">January 8, 2026</p>
       </div>
     </div>
     
@@ -159,11 +186,105 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p><strong>Hardware</strong>:</p>
+<ul>
+<li>CPU: AMD Ryzen 9950X3D</li>
+<li>GPU: NVIDIA RTX 5090 FE
+<ul>
+<li>32GB VRAM</li>
+<li>1792 GB/s theoretical bandwidth</li>
+<li>How many FLOPs</li>
+<li>Bandwidth?</li>
+<li>Roofline?</li>
+</ul></li>
+</ul>
+<p><strong>Environment</strong>:</p>
+<ul>
+<li>WSL2 - Ubuntu 24.04.3 LTS<br>
+</li>
+<li>CUDA Version 13.1<br>
+</li>
+<li>nvcc version 13.1<br>
+</li>
+</ul>
+</section>
+<section id="fundamentals" class="level2">
+<h2 class="anchored" data-anchor-id="fundamentals">Fundamentals</h2>
+<section id="how-to-allocate-memory-in-host-and-device" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-allocate-memory-in-host-and-device">How to allocate memory in host and device</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Host (CPU) memory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> <span class="op">*</span>h_A <span class="op">=</span> <span class="op">(</span><span class="dt">float</span> <span class="op">*)</span>malloc<span class="op">(</span>size<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Device (GPU) memory</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> <span class="op">*</span>d_A <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>cudaMalloc<span class="op">((</span><span class="dt">void</span> <span class="op">**)&amp;</span>d_A<span class="op">,</span> size<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>cudaMalloc</code> allocates in the GPU’s global memory (HBM - high bandwidth memory)</li>
+<li>This memory is accessible by all GPU threads, but has higher latency than shared memory or registers.</li>
+</ul>
+</section>
+<section id="how-to-transfer-data-between-host-and-device" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-transfer-data-between-host-and-device">How to transfer data between host and device</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cudaMemcpy<span class="op">(</span>d_A<span class="op">,</span> h_A<span class="op">,</span> size<span class="op">,</span> cudaMemcpyHostToDevice<span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cudaMemcpy<span class="op">(</span>d_B<span class="op">,</span> h_B<span class="op">,</span> size<span class="op">,</span> cudaMemcpyHostToDevice<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>cudaMemcpy</code> is synchronous, meaning the CPU waits until the transfer completes before continuing</li>
+<li><code>cudaMemcpyHostToDevice</code> specifies to direction of where the data moves</li>
+<li>Memory transfers are slow - you generally want to minimize the number of transfers</li>
+</ul>
+</section>
+<section id="how-to-clean-up-allocated-memory" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-clean-up-allocated-memory">How to clean up allocated memory</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>free<span class="op">(</span>h_A<span class="op">);</span>     <span class="co">// Free CPU memory</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cudaFree<span class="op">(</span>d_A<span class="op">);</span> <span class="co">// Free GPU memory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Forgetting to free memory causes memory leaks</li>
+</ul>
+</section>
+<section id="how-to-measure-performance" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-measure-performance">How to measure performance</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cudaEvent_t start<span class="op">,</span> stop<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cudaEventCreate<span class="op">(&amp;</span>start<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cudaEventCreate<span class="op">(&amp;</span>stop<span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>cudaEventRecord<span class="op">(</span>start<span class="op">);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>executeKernel<span class="op">&lt;&lt;&lt;</span>blocksPerGrid<span class="op">,</span> threadsPerBlock<span class="op">&gt;&gt;&gt;(</span>d_A<span class="op">,</span> d_B<span class="op">,</span> d_C<span class="op">,</span>  num_Elements<span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>cudaEventRecord<span class="op">(</span>stop<span class="op">);</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>cudaEventSynchronize<span class="op">(</span>stop<span class="op">);</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> milliseconds <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cudaEventElapsedTime<span class="op">(&amp;</span>milliseconds<span class="op">,</span> start<span class="op">,</span> stop<span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>cudaEventDestroy<span class="op">(</span>start<span class="op">);</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>cudaEventDestroy<span class="op">(</span>stop<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="vector-addition" class="level2">
+<h2 class="anchored" data-anchor-id="vector-addition">Vector Addition</h2>
+<p>The goal of this exercise is to build and run a simple vector addition kernel using CUDA.<br>
+1. Allocate memory on both CPU (host) and GPU (device)<br>
+2. Copy input data from CPU to GPU<br>
+3. Launch vector addition kernel to run on the GPU<br>
+4. Copy results back from GPU to CPU<br>
+5. Clean up allocated memory<br>
+</p>
+<p>Here is the vector addition kernel:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>__global__ <span class="dt">void</span> vectorAdd<span class="op">(</span><span class="dt">const</span> <span class="dt">float</span> <span class="op">*</span>A<span class="op">,</span> <span class="dt">const</span> <span class="dt">float</span> <span class="op">*</span>B<span class="op">,</span> <span class="dt">float</span> <span class="op">*</span>C<span class="op">,</span> <span class="dt">int</span> numElements<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> blockDim<span class="op">.</span>x <span class="op">*</span> blockIdx<span class="op">.</span>x <span class="op">+</span> threadIdx<span class="op">.</span>x<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>i <span class="op">&lt;</span> numElements<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        C<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> A<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> B<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Thread Indexing</strong>: - Thread index is calculated by <code>blockDim.x * blockIdx.x + threadIdx.x</code> - This formula computes a unique global index for each thread - For example, processing 50,000 elements using blocks of 256 threads each would require 196 blocks (rounded up) - Thread 0 in Block 0: index = 256 * 0 + 0 = 0 - Thread 10 in Block 0: index = 256 * 0 + 10 = 10 - Thread 0 in Block 1: index = 256 * 1 + 0 = 256 - Thread 100 in Block 2: index = 256 * 2 + 100 = 612 - Boundary checks are crucial to ensure you access valid memory</p>
+<p><strong>Memory Bandwidth Analysis</strong>: Vector addition performs two reads and one write. - Two float arrays to read from: 50,000 * 4 bytes * 2 = 400 KB - One float array to write to: 50,000 * 4 bytes - Total memory traffic: 600 KB</p>
+<p>If your kernel runs in 0.1 ms, the bandwidth is 600 KB / 0.0001 s = 6 GB/s. Note that the RTX 5090 has about 1792 GB/s theoretical bandwidth.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
